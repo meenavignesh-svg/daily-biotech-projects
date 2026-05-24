@@ -1,0 +1,52 @@
+Protein: insulin_fragment
+Length: 21 amino acids
+Estimated Molecular Weight: 2381.66 Da
+Aromatic Amino Acids: 3
+Unknown Characters: none
+Amino Acid Composition:
+  C: 4 (19.0%)
+  E: 2 (9.5%)
+  G: 1 (4.8%)
+  I: 2 (9.5%)
+  L: 2 (9.5%)
+  N: 2 (9.5%)
+  Q: 2 (9.5%)
+  S: 2 (9.5%)
+  T: 1 (4.8%)
+  V: 1 (4.8%)
+  Y: 2 (9.5%)
+
+Protein: collagen_like_fragment
+Length: 18 amino acids
+Estimated Molecular Weight: 1545.82 Da
+Aromatic Amino Acids: 0
+Unknown Characters: none
+Amino Acid Composition:
+  D: 1 (5.6%)
+  G: 5 (27.8%)
+  K: 1 (5.6%)
+  P: 10 (55.6%)
+  T: 1 (5.6%)
+
+Protein: enzyme_active_site_example
+Length: 42 amino acids
+Estimated Molecular Weight: 4865.50 Da
+Aromatic Amino Acids: 6
+Unknown Characters: none
+Amino Acid Composition:
+  A: 2 (4.8%)
+  D: 2 (4.8%)
+  E: 2 (4.8%)
+  F: 6 (14.3%)
+  G: 2 (4.8%)
+  H: 2 (4.8%)
+  I: 2 (4.8%)
+  K: 3 (7.1%)
+  L: 5 (11.9%)
+  M: 1 (2.4%)
+  R: 4 (9.5%)
+  S: 5 (11.9%)
+  T: 2 (4.8%)
+  V: 2 (4.8%)
+  W: 1 (2.4%)
+  Y: 1 (2.4%)
