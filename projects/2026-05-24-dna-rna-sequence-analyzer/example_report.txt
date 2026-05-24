@@ -1,0 +1,23 @@
+Sequence: sample_dna_1
+Type: DNA
+Length: 14 bases
+Base Counts: A=3, T=4, G=4, C=3, U=0
+GC Content: 50.00%
+RNA Transcript: AUGCGUACGUUAGC
+Reverse Complement: GCTAACGTACGCAT
+
+Sequence: sample_dna_2
+Type: DNA
+Length: 18 bases
+Base Counts: A=3, T=3, G=5, C=7, U=0
+GC Content: 66.67%
+RNA Transcript: GGGAAAUUUCCCGCGCUA
+Reverse Complement: TAGCGCGGGAAATTTCCC
+
+Sequence: sample_rna_1
+Type: RNA
+Length: 14 bases
+Base Counts: A=3, T=0, G=4, C=3, U=4
+GC Content: 50.00%
+RNA Transcript: already RNA
+Reverse Complement: not calculated for RNA input
