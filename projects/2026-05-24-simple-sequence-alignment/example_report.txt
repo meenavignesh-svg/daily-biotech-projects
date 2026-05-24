@@ -1,0 +1,16 @@
+Simple Sequence Alignment Report
+================================
+
+Sequence A: sequence_a
+Sequence B: sequence_b
+Scoring: match=1, mismatch=-1, gap=-2
+
+sequence_a   ATGCTAGCTAG
+             |||| ||||||
+sequence_b   ATGCGAGCTAG
+
+Alignment Score: 9
+Matches: 10
+Mismatches: 1
+Gaps: 0
+Percent Identity: 90.91%
