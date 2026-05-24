@@ -18,9 +18,11 @@ This repository is a growing student portfolio of small, practical biotechnology
 | 2026-05-24 | Protein Property Explorer | Amino acid composition, molecular weight, protein chemistry basics | [projects/2026-05-24-protein-property-explorer](projects/2026-05-24-protein-property-explorer) |
 | 2026-05-24 | Simple Sequence Alignment | Pairwise comparison, matches, mismatches, gaps, percent identity | [projects/2026-05-24-simple-sequence-alignment](projects/2026-05-24-simple-sequence-alignment) |
 
-### Automation
+### Productivity/Workflow Helper
 
-Projects will be added here as the portfolio grows.
+| Date | Project | Concept | Folder |
+| --- | --- | --- | --- |
+| 2026-05-24 | Lab Report Organizer | Clean file naming, report indexing, student lab documentation | [projects/2026-05-24-lab-report-organizer](projects/2026-05-24-lab-report-organizer) |
 
 ### AI
 
@@ -37,6 +39,7 @@ Projects will be added here as the portfolio grows.
 | 2026-05-24 | Bioinformatics | [DNA/RNA Sequence Analyzer](projects/2026-05-24-dna-rna-sequence-analyzer) |
 | 2026-05-24 | Bioinformatics | [Protein Property Explorer](projects/2026-05-24-protein-property-explorer) |
 | 2026-05-24 | Bioinformatics | [Simple Sequence Alignment](projects/2026-05-24-simple-sequence-alignment) |
+| 2026-05-24 | Productivity/Workflow Helper | [Lab Report Organizer](projects/2026-05-24-lab-report-organizer) |
 
 ## Portfolio Focus
 
