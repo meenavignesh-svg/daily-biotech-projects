@@ -10,11 +10,11 @@ I am building small, practical projects that connect biotechnology concepts with
 
 | Metric | Count |
 | --- | ---: |
-| Total projects | 10 |
+| Total projects | 11 |
 | Bioinformatics | 6 |
 | Productivity/Workflow Helper | 3 |
 | AI | 1 |
-| Data Analysis | 0 |
+| Data Analysis | 1 |
 
 ## Learning Tracks
 
@@ -45,7 +45,9 @@ I am building small, practical projects that connect biotechnology concepts with
 
 ### Data Analysis
 
-Projects will be added here as the portfolio grows.
+| Date | Project | Skill Focus |
+| --- | --- | --- |
+| 2026-05-26 | [Gene Expression Mini Summary](projects/2026-05-26-gene-expression-mini-summary) | CSV analysis, fold-change comparison, gene expression summary |
 
 ## Project Standards
 
@@ -67,6 +69,7 @@ Each project aims to include:
 | 2026-05-24 | Bioinformatics | [Protein Property Explorer](projects/2026-05-24-protein-property-explorer) |
 | 2026-05-24 | Bioinformatics | [Simple Sequence Alignment](projects/2026-05-24-simple-sequence-alignment) |
 | 2026-05-26 | AI | [Biotech Term Chat Helper](projects/2026-05-26-biotech-term-chat-helper) |
+| 2026-05-26 | Data Analysis | [Gene Expression Mini Summary](projects/2026-05-26-gene-expression-mini-summary) |
 | 2026-05-26 | Productivity/Workflow Helper | [Medical Coding Helper](projects/2026-05-26-medical-coding-helper) |
 | 2026-05-26 | Productivity/Workflow Helper | [PDF Lab Table Extractor](projects/2026-05-26-pdf-lab-table-extractor) |
 | 2026-05-26 | Bioinformatics | [Primer Basics Calculator](projects/2026-05-26-primer-basics-calculator) |

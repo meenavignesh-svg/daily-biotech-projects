@@ -1,0 +1,3 @@
+GENE_A: increased, fold change = 2.00
+GENE_B: decreased, fold change = 0.50
+GENE_C: increased, fold change = 1.20
