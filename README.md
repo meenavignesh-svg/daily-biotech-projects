@@ -2,7 +2,7 @@
 
 Daily bioinformatics and biotechnology learning projects by **Meena Vignesh M**.
 
-First-year Biotechnology student, Sethu Institute of Technology, Kariapatti.
+second-year Biotechnology student, Sethu Institute of Technology, Kariapatti.
 
 ## Purpose
 
