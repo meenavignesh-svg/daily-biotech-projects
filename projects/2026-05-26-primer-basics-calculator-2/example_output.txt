@@ -1,0 +1,7 @@
+Primer Basics Calculator
+
+Primer: primer_a
+Sequence: ATGCGTACGTTA
+Length: 12 bases
+GC Content: 50.00%
+Basic Tm: 36 C

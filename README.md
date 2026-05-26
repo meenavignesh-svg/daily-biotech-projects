@@ -18,6 +18,7 @@ This repository is a growing student portfolio of small, practical biotechnology
 | 2026-05-24 | Protein Property Explorer | Amino acid composition, molecular weight, protein chemistry basics | [projects/2026-05-24-protein-property-explorer](projects/2026-05-24-protein-property-explorer) |
 | 2026-05-24 | Simple Sequence Alignment | Pairwise comparison, matches, mismatches, gaps, percent identity | [projects/2026-05-24-simple-sequence-alignment](projects/2026-05-24-simple-sequence-alignment) |
 | 2026-05-26 | Primer Basics Calculator | Primer length, GC percentage, and basic melting temperature | [projects/2026-05-26-primer-basics-calculator](projects/2026-05-26-primer-basics-calculator) |
+| 2026-05-26 | Primer Basics Calculator | Primer length, GC percentage, and basic melting temperature | [projects/2026-05-26-primer-basics-calculator-2](projects/2026-05-26-primer-basics-calculator-2) |
 
 ### Productivity/Workflow Helper
 
@@ -46,6 +47,7 @@ Projects will be added here as the portfolio grows.
 | 2026-05-26 | Productivity/Workflow Helper | [Medical Coding Helper](projects/2026-05-26-medical-coding-helper) |
 | 2026-05-26 | Productivity/Workflow Helper | [PDF Lab Table Extractor](projects/2026-05-26-pdf-lab-table-extractor) |
 | 2026-05-26 | Bioinformatics | [Primer Basics Calculator](projects/2026-05-26-primer-basics-calculator) |
+| 2026-05-26 | Bioinformatics | [Primer Basics Calculator](projects/2026-05-26-primer-basics-calculator-2) |
 
 ## Portfolio Focus
 
