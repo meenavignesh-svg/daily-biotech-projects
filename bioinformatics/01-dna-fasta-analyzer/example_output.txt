@@ -1,0 +1,13 @@
+DNA FASTA Analyzer
+
+Sequence: sample_gene_A
+Length: 14 bases
+A=3 T=4 G=4 C=3
+GC content: 50.00%
+RNA transcript: AUGCGUACGUUAGC
+
+Sequence: sample_gene_B
+Length: 14 bases
+A=3 T=3 G=5 C=3
+GC content: 57.14%
+RNA transcript: GGGAAAUUUCCCGC
