@@ -1,0 +1,4 @@
+Sample | Reading | Unit
+Glucose | 92 | mg/dL
+Protein | 6.8 | g/dL
+pH | 7.2 | pH
