@@ -2,7 +2,8 @@
 
 **Portfolio:** Computational Biotechnology Portfolio  
 **Track:** Bioinformatics  
-**Author:** Meena Vignesh M
+**Author:** Meena Vignesh M  
+**Live page:** https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/01-dna-fasta-analyzer/
 
 ## Purpose
 This project turns a small biotechnology or healthcare-data task into a reproducible Python workflow. I built it to practice both the science concept and the coding steps clearly.
