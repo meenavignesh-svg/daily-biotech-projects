@@ -1,4 +1,4 @@
-name: Daily Biotech Project
+name: Computational Biotechnology Portfolio Build
 
 on:
   schedule:
@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Create daily project
+      - name: Build portfolio project
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
@@ -31,17 +31,17 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         run: python scripts/daily_project_builder.py
 
-      - name: Polish portfolio README
+      - name: Refresh portfolio README
         run: python scripts/polish_readme.py
 
-      - name: Commit daily project
+      - name: Commit portfolio update
         run: |
           git config user.name "Meena Vignesh M"
           git config user.email "meenavignesh6789@gmail.com"
-          git add README.md projects/ scripts/
+          git add README.md RESUME_BULLETS.md bioinformatics/ lab-data-analysis/ medical-coding-healthcare-data/ biotech-ai-tools/ scripts/
           if git diff --cached --quiet; then
-            echo "No project changes to commit."
+            echo "No portfolio changes to commit."
           else
-            git commit -m "Add daily biotech project"
+            git commit -m "Add computational biotech portfolio project"
             git push
           fi
