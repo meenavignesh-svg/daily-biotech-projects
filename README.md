@@ -2,6 +2,8 @@
 
 A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
 
+**Live portfolio site:** https://meenavignesh-svg.github.io/daily-biotech-projects/
+
 ## Why this portfolio matters
 
 This repository shows my ability to use Python for biotechnology, bioinformatics, lab data cleaning, healthcare data handling, and scientific reporting.
@@ -41,9 +43,9 @@ I am targeting entry-level roles/internships in:
 
 ### Bioinformatics
 
-| Project | Skill shown |
-| --- | --- |
-| [DNA FASTA Analyzer](bioinformatics/01-dna-fasta-analyzer) | FASTA parsing, nucleotide counting, GC content reporting, transcription basics, and scientific reporting |
+| Project | Live page | Skill shown |
+| --- | --- | --- |
+| [DNA FASTA Analyzer](bioinformatics/01-dna-fasta-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/01-dna-fasta-analyzer/) | FASTA parsing, nucleotide counting, GC content reporting, transcription basics, and scientific reporting |
 
 ### Lab Data Analysis
 
@@ -64,6 +66,7 @@ Each main project is expected to include:
 - Sample biological, lab, or healthcare-data input
 - Example output
 - A README with job skill, result, and interview explanation value
+- A deployed GitHub Pages project page
 - A resume bullet collected in [RESUME_BULLETS.md](RESUME_BULLETS.md)
 
 ## Author
