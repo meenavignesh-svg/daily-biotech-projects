@@ -7,10 +7,19 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
 
 jobs:
   build-project:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -34,14 +43,29 @@ jobs:
       - name: Refresh portfolio README
         run: python scripts/polish_readme.py
 
+      - name: Build GitHub Pages site
+        run: python scripts/site_builder.py
+
       - name: Commit portfolio update
         run: |
           git config user.name "Meena Vignesh M"
           git config user.email "meenavignesh6789@gmail.com"
-          git add README.md RESUME_BULLETS.md bioinformatics/ lab-data-analysis/ medical-coding-healthcare-data/ biotech-ai-tools/ scripts/
+          git add README.md RESUME_BULLETS.md docs/ bioinformatics/ lab-data-analysis/ medical-coding-healthcare-data/ biotech-ai-tools/ scripts/
           if git diff --cached --quiet; then
             echo "No portfolio changes to commit."
           else
             git commit -m "Add computational biotech portfolio project"
             git push
           fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
