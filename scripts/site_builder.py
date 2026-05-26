@@ -1,4 +1,4 @@
-"""Build a static GitHub Pages site for every portfolio project."""
+"""Build a premium static GitHub Pages site for every portfolio project."""
 
 from __future__ import annotations
 
@@ -9,13 +9,49 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-BASE_URL = "https://meenavignesh-svg.github.io/daily-biotech-projects"
+PAGES_BASE_URL = "https://meenavignesh-svg.github.io/daily-biotech-projects"
 TRACKS = {
     "bioinformatics": "Bioinformatics",
     "lab-data-analysis": "Lab Data Analysis",
     "medical-coding-healthcare-data": "Medical Coding / Healthcare Data",
     "biotech-ai-tools": "Biotech AI Tools",
 }
+
+CSS = """
+:root { color-scheme: dark; --bg: #071012; --panel: #0d1b1f; --panel2: #10262b; --ink: #eefcf8; --muted: #9fb8b4; --line: rgba(191, 231, 223, .18); --accent: #49e2b5; --accent2: #9ad8ff; --gold: #f7d774; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: radial-gradient(circle at 20% 0%, #17383b 0, transparent 32rem), linear-gradient(135deg, #071012, #0b161c 52%, #071012); line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { width: min(1160px, calc(100% - 34px)); margin: 0 auto; }
+.hero { min-height: 78vh; display: grid; align-items: center; border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
+.hero:after { content: ""; position: absolute; inset: auto -10% -45% 30%; height: 420px; background: radial-gradient(circle, rgba(73,226,181,.22), transparent 70%); pointer-events: none; }
+.kicker { color: var(--accent); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
+h1 { max-width: 920px; margin: 14px 0 18px; font-size: clamp(42px, 8vw, 92px); line-height: .95; letter-spacing: 0; }
+.lead { max-width: 760px; color: #cbe2de; font-size: clamp(17px, 2.2vw, 23px); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); font-weight: 750; }
+.button.primary { background: var(--accent); color: #04201a; border-color: transparent; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 34px; max-width: 760px; }
+.stat { border: 1px solid var(--line); background: rgba(255,255,255,.055); border-radius: 8px; padding: 14px; backdrop-filter: blur(10px); }
+.stat strong { display: block; font-size: 28px; line-height: 1; color: var(--gold); }
+.stat span { color: var(--muted); font-size: 13px; }
+main { padding: 56px 0 74px; }
+.section-title { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 0 0 18px; }
+h2 { margin: 0; font-size: clamp(25px, 4vw, 40px); line-height: 1.1; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 16px; }
+.card { position: relative; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)); border-radius: 8px; padding: 20px; min-height: 210px; box-shadow: 0 22px 60px rgba(0,0,0,.24); }
+.card:before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--gold)); }
+.card h3 { margin: 14px 0 8px; font-size: 22px; }
+.pill { display: inline-flex; padding: 5px 9px; border-radius: 999px; color: #051513; background: var(--accent); font-size: 12px; font-weight: 850; }
+.panel { border: 1px solid var(--line); background: rgba(255,255,255,.055); border-radius: 8px; padding: 22px; margin-top: 18px; }
+.case-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(320px, 1.08fr); gap: 18px; align-items: start; }
+@media (max-width: 860px) { .case-grid { grid-template-columns: 1fr; } .hero { min-height: auto; padding: 72px 0; } }
+ul { padding-left: 20px; }
+pre { overflow-x: auto; border: 1px solid rgba(154,216,255,.22); background: #05090d; color: #d8fff2; padding: 18px; border-radius: 8px; box-shadow: inset 0 1px 0 rgba(255,255,255,.06); }
+code { font-family: Consolas, Monaco, monospace; font-size: 13px; }
+footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--muted); }
+"""
 
 
 def clean(value: str) -> str:
@@ -37,7 +73,7 @@ def section(text: str, name: str) -> str:
 
 
 def paragraphize(markdown: str) -> str:
-    lines = []
+    lines: list[str] = []
     in_list = False
     for raw_line in markdown.splitlines():
         line = raw_line.strip()
@@ -61,41 +97,19 @@ def paragraphize(markdown: str) -> str:
     return "\n".join(lines)
 
 
-def page_shell(title: str, body: str) -> str:
+def shell(title: str, hero: str, body: str) -> str:
     return f"""<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)}</title>
-  <style>
-    :root {{ color-scheme: light; --ink: #17202a; --muted: #536271; --line: #d9e2ec; --accent: #0f766e; --soft: #eef8f6; }}
-    * {{ box-sizing: border-box; }}
-    body {{ margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: #f8fafc; line-height: 1.55; }}
-    header {{ background: #ffffff; border-bottom: 1px solid var(--line); }}
-    .wrap {{ width: min(1080px, calc(100% - 32px)); margin: 0 auto; }}
-    .top {{ padding: 28px 0 22px; }}
-    .brand {{ font-size: 14px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0; }}
-    h1 {{ margin: 8px 0 8px; font-size: clamp(30px, 5vw, 52px); line-height: 1.05; }}
-    h2 {{ margin-top: 30px; font-size: 22px; }}
-    p {{ margin: 10px 0; }}
-    a {{ color: var(--accent); }}
-    main {{ padding: 28px 0 48px; }}
-    .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }}
-    .card {{ background: #ffffff; border: 1px solid var(--line); border-radius: 8px; padding: 16px; }}
-    .card h3 {{ margin: 0 0 8px; font-size: 18px; }}
-    .pill {{ display: inline-block; padding: 4px 8px; background: var(--soft); color: var(--accent); border-radius: 999px; font-size: 12px; font-weight: 700; }}
-    pre {{ overflow-x: auto; background: #0f172a; color: #e2e8f0; padding: 16px; border-radius: 8px; }}
-    code {{ font-family: Consolas, Monaco, monospace; }}
-    table {{ width: 100%; border-collapse: collapse; background: #ffffff; }}
-    th, td {{ padding: 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }}
-    footer {{ color: var(--muted); border-top: 1px solid var(--line); padding: 22px 0; background: #ffffff; }}
-  </style>
+  <style>{CSS}</style>
 </head>
 <body>
-<header><div class="wrap top"><div class="brand">Computational Biotechnology Portfolio</div><h1>{html.escape(title)}</h1><p>Meena Vignesh M</p></div></header>
+{hero}
 <main><div class="wrap">{body}</div></main>
-<footer><div class="wrap">Bioinformatics, lab data analysis, healthcare data, and biotech tools portfolio.</div></footer>
+<footer><div class="wrap">Meena Vignesh M · Computational biotechnology, bioinformatics, lab data, and healthcare-data portfolio.</div></footer>
 </body>
 </html>
 """
@@ -109,6 +123,7 @@ def project_records() -> list[dict[str, str]]:
             continue
         for project_dir in sorted(path for path in root.iterdir() if path.is_dir()):
             readme = read_file(project_dir / "README.md")
+            code_path = next(project_dir.glob("*.py"), project_dir / "missing.py")
             records.append({
                 "track_folder": folder,
                 "track": track,
@@ -119,59 +134,66 @@ def project_records() -> list[dict[str, str]]:
                 "skill": section(readme, "Job Skill Demonstrated"),
                 "result": section(readme, "Result"),
                 "practiced": section(readme, "What I Practiced"),
-                "code": read_file(next(project_dir.glob("*.py"), project_dir / "missing.py")),
+                "code": read_file(code_path),
                 "output": read_file(project_dir / "example_output.txt"),
             })
     return records
 
 
-def build_project_page(record: dict[str, str]) -> str:
-    body = f"""
-<p><span class="pill">{html.escape(record['track'])}</span></p>
-<h2>Purpose</h2>
-{paragraphize(record['purpose'])}
-<h2>Biology / Data Concept</h2>
-{paragraphize(record['concept'])}
-<h2>Job Skill Demonstrated</h2>
-{paragraphize(record['skill'])}
-<h2>Result</h2>
-{paragraphize(record['result'])}
-<h2>What I Practiced</h2>
-{paragraphize(record['practiced'])}
-<h2>Example Output</h2>
-<pre><code>{html.escape(record['output'])}</code></pre>
-<h2>Main Python Code</h2>
-<pre><code>{html.escape(record['code'])}</code></pre>
-<p><a href="../../">Back to portfolio home</a></p>
-"""
-    return page_shell(record["title"], body)
-
-
 def build_home(records: list[dict[str, str]]) -> str:
+    project_count = len(records)
+    track_count = sum(1 for folder in TRACKS if (ROOT / folder).exists())
+    hero = f"""
+<header class="hero"><div class="wrap">
+  <div class="kicker">Computational Biotechnology Portfolio</div>
+  <h1>Biotech projects with code, data, reports, and deployable proof.</h1>
+  <p class="lead">A focused portfolio by Meena Vignesh M showing Python for bioinformatics, lab data analysis, healthcare-data handling, and scientific reporting.</p>
+  <div class="hero-actions"><a class="button primary" href="#projects">View projects</a><a class="button" href="https://github.com/meenavignesh-svg/daily-biotech-projects">Open GitHub repo</a></div>
+  <div class="stats"><div class="stat"><strong>{project_count}</strong><span>deployed projects</span></div><div class="stat"><strong>{track_count}</strong><span>job-focused tracks</span></div><div class="stat"><strong>10</strong><span>planned core builds</span></div></div>
+</div></header>
+"""
     cards = []
     for record in records:
         url = f"{record['track_folder']}/{record['slug']}/"
         cards.append(f"""
-<div class="card">
+<article class="card">
   <span class="pill">{html.escape(record['track'])}</span>
   <h3><a href="{html.escape(url)}">{html.escape(record['title'])}</a></h3>
-  <p>{html.escape(clean(record['concept'])[:180])}</p>
-</div>
+  <p>{html.escape(clean(record['concept'])[:210])}</p>
+</article>
 """)
     body = """
-<p>This portfolio shows practical Python work for biotechnology, bioinformatics, lab data cleaning, healthcare data handling, and scientific reporting.</p>
-<h2>Project Tracks</h2>
-<table>
-<tr><th>Track</th><th>Focus</th></tr>
-<tr><td>Bioinformatics</td><td>Sequence analysis, primers, proteins, FASTA workflows</td></tr>
-<tr><td>Lab Data Analysis</td><td>CSV cleaning, OD readings, growth curves, expression summaries</td></tr>
-<tr><td>Medical Coding / Healthcare Data</td><td>Safe educational healthcare-data mapping and summaries</td></tr>
-<tr><td>Biotech AI Tools</td><td>Transparent biotech decision-support demos for learning</td></tr>
-</table>
-<h2>Projects</h2>
+<div class="section-title"><h2>Portfolio Tracks</h2><p>Built for internship conversations, not random demos.</p></div>
+<div class="grid">
+  <div class="card"><span class="pill">Bioinformatics</span><h3>Sequence Workflows</h3><p>FASTA, primers, protein properties, and reproducible command-line reports.</p></div>
+  <div class="card"><span class="pill">Lab Data</span><h3>Scientific Tables</h3><p>CSV cleaning, OD readings, expression summaries, and lab report outputs.</p></div>
+  <div class="card"><span class="pill">Healthcare Data</span><h3>Structured Mapping</h3><p>Safe educational term mapping and non-clinical healthcare-data summaries.</p></div>
+  <div class="card"><span class="pill">Biotech Tools</span><h3>Transparent Scoring</h3><p>Explainable rule-based tools for sample review and learning.</p></div>
+</div>
+<div class="section-title" id="projects" style="margin-top:48px"><h2>Deployed Projects</h2><p>Each page includes concept, result, sample output, and code.</p></div>
 <div class="grid">
 """ + "\n".join(cards) + "\n</div>"
-    return page_shell("Computational Biotechnology Portfolio", body)
+    return shell("Computational Biotechnology Portfolio", hero, body)
+
+
+def build_project(record: dict[str, str]) -> str:
+    hero = f"""
+<header class="hero"><div class="wrap">
+  <div class="kicker">{html.escape(record['track'])}</div>
+  <h1>{html.escape(record['title'])}</h1>
+  <p class="lead">{html.escape(clean(record['concept']))}</p>
+  <div class="hero-actions"><a class="button primary" href="https://github.com/meenavignesh-svg/daily-biotech-projects/tree/main/{record['track_folder']}/{record['slug']}">View source files</a><a class="button" href="../../">Portfolio home</a></div>
+</div></header>
+"""
+    body = f"""
+<div class="case-grid">
+  <section class="panel"><h2>Case Study</h2><h3>Purpose</h3>{paragraphize(record['purpose'])}<h3>Result</h3>{paragraphize(record['result'])}<h3>Skills Demonstrated</h3>{paragraphize(record['skill'])}</section>
+  <section class="panel"><h2>Scientific Context</h2>{paragraphize(record['concept'])}<h3>What I Practiced</h3>{paragraphize(record['practiced'])}</section>
+</div>
+<section class="panel"><h2>Example Output</h2><pre><code>{html.escape(record['output'])}</code></pre></section>
+<section class="panel"><h2>Main Python Code</h2><pre><code>{html.escape(record['code'])}</code></pre></section>
+"""
+    return shell(record["title"], hero, body)
 
 
 def main() -> None:
@@ -183,7 +205,7 @@ def main() -> None:
     for record in records:
         out_dir = DOCS / record["track_folder"] / record["slug"]
         out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / "index.html").write_text(build_project_page(record), encoding="utf-8")
+        (out_dir / "index.html").write_text(build_project(record), encoding="utf-8")
     (DOCS / ".nojekyll").write_text("", encoding="utf-8")
     print(f"Built GitHub Pages site with {len(records)} projects.")
 
