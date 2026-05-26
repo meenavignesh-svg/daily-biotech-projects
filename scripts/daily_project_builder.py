@@ -223,14 +223,10 @@ def slugify(text: str) -> str:
     return clean.strip("-") or "daily-project"
 
 
-def project_count() -> int:
+def project_dirs() -> list[Path]:
     if not PROJECTS_DIR.exists():
-        return 0
-    return len([path for path in PROJECTS_DIR.iterdir() if path.is_dir()])
-
-
-def target_track() -> str:
-    return TRACKS[project_count() % len(TRACKS)]
+        return []
+    return [path for path in sorted(PROJECTS_DIR.iterdir()) if path.is_dir()]
 
 
 def write_text(path: Path, content: str) -> None:
@@ -239,9 +235,7 @@ def write_text(path: Path, content: str) -> None:
 
 
 def existing_project_names() -> str:
-    if not PROJECTS_DIR.exists():
-        return "No existing projects found."
-    names = sorted(path.name for path in PROJECTS_DIR.iterdir() if path.is_dir())
+    names = [path.name for path in project_dirs()]
     return "\n".join(names[-30:]) if names else "No existing projects found."
 
 
@@ -331,6 +325,35 @@ def sanitize_text(text: str) -> str:
     return text
 
 
+def readme_content(item: dict, track: str, date_text: str) -> str:
+    return f"""# {item['title']}
+
+**Date:** {date_text}  
+**Track:** {track}  
+**Author:** Meena Vignesh M
+
+## Purpose
+
+I built this project as a small portfolio exercise to practice biotechnology concepts with simple Python code.
+
+## Concept
+
+{item['concept']}.
+
+## How To Run
+
+```bash
+python {item['script']} {item['sample']}
+```
+
+## What I Learned
+
+- I practiced connecting a biology topic with a small coding task
+- I learned how structured input files make analysis easier
+- I improved my confidence with Python project folders
+"""
+
+
 def fallback_project(track: str) -> dict:
     item = FALLBACKS[track]
     return {
@@ -384,35 +407,6 @@ def choose_project(date_text: str, track: str) -> dict:
         return sanitize_project(fallback_project(track), track)
 
 
-def readme_content(item: dict, track: str, date_text: str) -> str:
-    return f"""# {item['title']}
-
-**Date:** {date_text}  
-**Track:** {track}  
-**Author:** Meena Vignesh M
-
-## Purpose
-
-I built this project as a small portfolio exercise to practice biotechnology concepts with simple Python code.
-
-## Concept
-
-{item['concept']}.
-
-## How To Run
-
-```bash
-python {item['script']} {item['sample']}
-```
-
-## What I Learned
-
-- I practiced connecting a biology topic with a small coding task
-- I learned how structured input files make analysis easier
-- I improved my confidence with Python project folders
-"""
-
-
 def unique_folder_name(date_text: str, slug: str) -> str:
     base = f"{date_text}-{slug}"
     candidate = base
@@ -438,10 +432,15 @@ def project_meta(folder: Path) -> dict[str, str]:
     return {"date": date, "title": title, "track": track, "concept": concept, "folder": folder.name}
 
 
+def target_track() -> str:
+    counts = {track: 0 for track in TRACKS}
+    for folder in project_dirs():
+        counts[project_meta(folder)["track"]] += 1
+    return min(TRACKS, key=lambda track: (counts[track], TRACKS.index(track)))
+
+
 def rebuild_root_readme() -> None:
-    projects = []
-    if PROJECTS_DIR.exists():
-        projects = [project_meta(path) for path in sorted(PROJECTS_DIR.iterdir()) if path.is_dir()]
+    projects = [project_meta(path) for path in project_dirs()]
     lines = [
         "# Daily Biotech Projects",
         "",
@@ -530,15 +529,18 @@ def send_lesson(subject: str, body: str) -> None:
     if not all([to_email, host, username, password]):
         print("Email settings are incomplete; skipping lesson email.")
         return
-    message = EmailMessage()
-    message["Subject"] = subject
-    message["From"] = username
-    message["To"] = to_email
-    message.set_content(body)
-    with smtplib.SMTP(host, port) as server:
-        server.starttls()
-        server.login(username, password)
-        server.send_message(message)
+    try:
+        message = EmailMessage()
+        message["Subject"] = subject
+        message["From"] = username
+        message["To"] = to_email
+        message.set_content(body)
+        with smtplib.SMTP(host, port) as server:
+            server.starttls()
+            server.login(username, password)
+            server.send_message(message)
+    except Exception as exc:
+        print(f"Lesson email failed, but project files were created: {exc}")
 
 
 def main() -> None:
