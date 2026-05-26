@@ -10,10 +10,10 @@ I am building small, practical projects that connect biotechnology concepts with
 
 | Metric | Count |
 | --- | ---: |
-| Total projects | 9 |
+| Total projects | 10 |
 | Bioinformatics | 6 |
 | Productivity/Workflow Helper | 3 |
-| AI | 0 |
+| AI | 1 |
 | Data Analysis | 0 |
 
 ## Learning Tracks
@@ -26,8 +26,8 @@ I am building small, practical projects that connect biotechnology concepts with
 | 2026-05-24 | [Protein Property Explorer](projects/2026-05-24-protein-property-explorer) | Amino acid composition, molecular weight, protein basics |
 | 2026-05-24 | [Simple Sequence Alignment](projects/2026-05-24-simple-sequence-alignment) | Pairwise alignment, matches, mismatches, percent identity |
 | 2026-05-26 | [Primer Basics Calculator](projects/2026-05-26-primer-basics-calculator) | Primer length, GC percentage, basic melting temperature |
-| 2026-05-26 | [Primer Basics Calculator 2](projects/2026-05-26-primer-basics-calculator-2) | Primer property practice and Python file handling |
-| 2026-05-26 | [Primer Basics Calculator 3](projects/2026-05-26-primer-basics-calculator-3) | Primer property practice and report output |
+| 2026-05-26 | [Primer Basics Calculator 2](projects/2026-05-26-primer-basics-calculator-2) | Primer length, GC percentage, basic melting temperature |
+| 2026-05-26 | [Primer Basics Calculator 3](projects/2026-05-26-primer-basics-calculator-3) | Primer length, GC percentage, basic melting temperature |
 
 ### Productivity/Workflow Helper
 
@@ -39,7 +39,9 @@ I am building small, practical projects that connect biotechnology concepts with
 
 ### AI
 
-Projects will be added here as the portfolio grows.
+| Date | Project | Skill Focus |
+| --- | --- | --- |
+| 2026-05-26 | [Biotech Term Chat Helper](projects/2026-05-26-biotech-term-chat-helper) | Beginner biotechnology Q&A and dictionary-style responses |
 
 ### Data Analysis
 
@@ -64,6 +66,7 @@ Each project aims to include:
 | 2026-05-24 | Productivity/Workflow Helper | [Lab Report Organizer](projects/2026-05-24-lab-report-organizer) |
 | 2026-05-24 | Bioinformatics | [Protein Property Explorer](projects/2026-05-24-protein-property-explorer) |
 | 2026-05-24 | Bioinformatics | [Simple Sequence Alignment](projects/2026-05-24-simple-sequence-alignment) |
+| 2026-05-26 | AI | [Biotech Term Chat Helper](projects/2026-05-26-biotech-term-chat-helper) |
 | 2026-05-26 | Productivity/Workflow Helper | [Medical Coding Helper](projects/2026-05-26-medical-coding-helper) |
 | 2026-05-26 | Productivity/Workflow Helper | [PDF Lab Table Extractor](projects/2026-05-26-pdf-lab-table-extractor) |
 | 2026-05-26 | Bioinformatics | [Primer Basics Calculator](projects/2026-05-26-primer-basics-calculator) |

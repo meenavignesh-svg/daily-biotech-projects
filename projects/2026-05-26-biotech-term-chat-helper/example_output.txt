@@ -1,0 +1,2 @@
+Q: What is DNA?
+A: DNA stores genetic information using A, T, G, and C bases.
