@@ -1,0 +1,6 @@
+Medical Coding Helper - Study Output
+Learning note: for education only, not for clinical or billing use.
+
+Term                Category      Code     Meaning
+------------------  ------------  -------  --------------------------------------------
+Blood Glucose Test  Biochemistry  LAB-GLU  Measures glucose level in blood sample
