@@ -1,82 +1,70 @@
-# Daily Biotech Projects
+# Computational Biotechnology Portfolio
 
-A growing biotechnology and bioinformatics portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
+A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
 
-## Portfolio Goal
+## Why this portfolio matters
 
-I am building small, practical projects that connect biotechnology concepts with programming, data handling, and scientific documentation. Each project is kept beginner-friendly, but the portfolio is structured to show steady growth across bioinformatics, productivity tools, AI-style learning utilities, and data analysis.
+This repository shows my ability to use Python for biotechnology, bioinformatics, lab data cleaning, healthcare data handling, and scientific reporting.
 
-## Current Snapshot
+I am targeting entry-level roles/internships in:
+- Bioinformatics
+- Biotechnology data analysis
+- Medical coding / healthcare data
+- Lab informatics
+- AI-assisted biotech tools
 
-| Metric | Count |
-| --- | ---: |
-| Total projects | 12 |
-| Bioinformatics | 6 |
-| Productivity/Workflow Helper | 3 |
-| AI | 2 |
-| Data Analysis | 1 |
+## Portfolio Tracks
 
-## Learning Tracks
+| Track | Folder | Purpose |
+| --- | --- | --- |
+| Bioinformatics | `bioinformatics/` | Sequence analysis, primers, proteins, FASTA workflows |
+| Lab Data Analysis | `lab-data-analysis/` | CSV cleaning, OD readings, growth curves, expression summaries |
+| Medical Coding / Healthcare Data | `medical-coding-healthcare-data/` | Safe educational healthcare-data mapping and summaries |
+| Biotech AI Tools | `biotech-ai-tools/` | Transparent biotech decision-support demos for learning |
+
+## Project Roadmap
+
+| Track | Target project | Status |
+| --- | --- | --- |
+| Bioinformatics | 01 DNA FASTA analyzer | Done |
+| Bioinformatics | 02 Protein property calculator | Planned |
+| Bioinformatics | 03 Primer quality checker | Planned |
+| Lab Data Analysis | 04 Gene expression fold-change analysis | Planned |
+| Lab Data Analysis | 05 ELISA/OD data analyzer | Planned |
+| Lab Data Analysis | 06 Microbial growth curve analyzer | Planned |
+| Lab Data Analysis | 07 Lab report table cleaner | Planned |
+| Medical Coding / Healthcare Data | 08 Medical coding term mapper | Planned |
+| Medical Coding / Healthcare Data | 09 Drug prescription data dashboard | Planned |
+| Biotech AI Tools | 10 BioSentinel risk-screening demo | Planned |
+
+## Completed Portfolio Projects
 
 ### Bioinformatics
 
-| Date | Project | Skill Focus |
-| --- | --- | --- |
-| 2026-05-24 | [DNA/RNA Sequence Analyzer](projects/2026-05-24-dna-rna-sequence-analyzer) | FASTA parsing, base counts, GC content, transcription |
-| 2026-05-24 | [Protein Property Explorer](projects/2026-05-24-protein-property-explorer) | Amino acid composition, molecular weight, protein basics |
-| 2026-05-24 | [Simple Sequence Alignment](projects/2026-05-24-simple-sequence-alignment) | Pairwise alignment, matches, mismatches, percent identity |
-| 2026-05-26 | [Primer Basics Calculator](projects/2026-05-26-primer-basics-calculator) | Primer length, GC percentage, basic melting temperature |
-| 2026-05-26 | [Primer Basics Calculator 2](projects/2026-05-26-primer-basics-calculator-2) | Primer length, GC percentage, basic melting temperature |
-| 2026-05-26 | [Primer Basics Calculator 3](projects/2026-05-26-primer-basics-calculator-3) | Primer length, GC percentage, basic melting temperature |
+| Project | Skill shown |
+| --- | --- |
+| [DNA FASTA Analyzer](bioinformatics/01-dna-fasta-analyzer) | FASTA parsing, nucleotide counting, GC content reporting, transcription basics, and scientific reporting |
 
-### Productivity/Workflow Helper
+### Lab Data Analysis
 
-| Date | Project | Skill Focus |
-| --- | --- | --- |
-| 2026-05-24 | [Lab Report Organizer](projects/2026-05-24-lab-report-organizer) | Clean file naming, lab report indexing, Markdown output |
-| 2026-05-26 | [Medical Coding Helper](projects/2026-05-26-medical-coding-helper) | Educational lab term search, CSV filtering, safe healthcare wording |
-| 2026-05-26 | [PDF Lab Table Extractor](projects/2026-05-26-pdf-lab-table-extractor) | Cleaning copied lab table text into structured data |
+Projects will be added here as this portfolio grows.
 
-### AI
+### Medical Coding / Healthcare Data
 
-| Date | Project | Skill Focus |
-| --- | --- | --- |
-| 2026-05-26 | [Biotech Term Chat Helper](projects/2026-05-26-biotech-term-chat-helper) | Beginner biotechnology Q&A and dictionary-style responses |
-| 2026-05-26 | [Biotech Term Chat Helper 2](projects/2026-05-26-biotech-term-chat-helper-2) | Beginner biotechnology Q&A and dictionary-style responses |
+Projects will be added here as this portfolio grows.
 
-### Data Analysis
+### Biotech AI Tools
 
-| Date | Project | Skill Focus |
-| --- | --- | --- |
-| 2026-05-26 | [Gene Expression Mini Summary](projects/2026-05-26-gene-expression-mini-summary) | CSV analysis, fold-change comparison, gene expression summary |
+Projects will be added here as this portfolio grows.
 
-## Project Standards
+## Project Standard
 
-Each project aims to include:
-
-- A clear README written in my learning voice
-- A small working Python script or notebook
-- Sample input data
+Each main project is expected to include:
+- A working Python script
+- Sample biological, lab, or healthcare-data input
 - Example output
-- A short explanation of the biotechnology concept
-- Notes on what I learned and what I want to improve next
-
-## Chronological Index
-
-| Date | Track | Project |
-| --- | --- | --- |
-| 2026-05-24 | Bioinformatics | [DNA/RNA Sequence Analyzer](projects/2026-05-24-dna-rna-sequence-analyzer) |
-| 2026-05-24 | Productivity/Workflow Helper | [Lab Report Organizer](projects/2026-05-24-lab-report-organizer) |
-| 2026-05-24 | Bioinformatics | [Protein Property Explorer](projects/2026-05-24-protein-property-explorer) |
-| 2026-05-24 | Bioinformatics | [Simple Sequence Alignment](projects/2026-05-24-simple-sequence-alignment) |
-| 2026-05-26 | AI | [Biotech Term Chat Helper](projects/2026-05-26-biotech-term-chat-helper) |
-| 2026-05-26 | AI | [Biotech Term Chat Helper 2](projects/2026-05-26-biotech-term-chat-helper-2) |
-| 2026-05-26 | Data Analysis | [Gene Expression Mini Summary](projects/2026-05-26-gene-expression-mini-summary) |
-| 2026-05-26 | Productivity/Workflow Helper | [Medical Coding Helper](projects/2026-05-26-medical-coding-helper) |
-| 2026-05-26 | Productivity/Workflow Helper | [PDF Lab Table Extractor](projects/2026-05-26-pdf-lab-table-extractor) |
-| 2026-05-26 | Bioinformatics | [Primer Basics Calculator](projects/2026-05-26-primer-basics-calculator) |
-| 2026-05-26 | Bioinformatics | [Primer Basics Calculator 2](projects/2026-05-26-primer-basics-calculator-2) |
-| 2026-05-26 | Bioinformatics | [Primer Basics Calculator 3](projects/2026-05-26-primer-basics-calculator-3) |
+- A README with job skill, result, and interview explanation value
+- A resume bullet collected in [RESUME_BULLETS.md](RESUME_BULLETS.md)
 
 ## Author
 
