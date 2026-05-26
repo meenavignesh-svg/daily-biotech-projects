@@ -23,6 +23,7 @@ This repository is a growing student portfolio of small, practical biotechnology
 | Date | Project | Concept | Folder |
 | --- | --- | --- | --- |
 | 2026-05-24 | Lab Report Organizer | Clean file naming, report indexing, student lab documentation | [projects/2026-05-24-lab-report-organizer](projects/2026-05-24-lab-report-organizer) |
+| 2026-05-26 | Medical Coding Helper | Educational lab term search, structured study tables, safe healthcare wording | [projects/2026-05-26-medical-coding-helper](projects/2026-05-26-medical-coding-helper) |
 
 ### AI
 
@@ -40,6 +41,7 @@ Projects will be added here as the portfolio grows.
 | 2026-05-24 | Bioinformatics | [Protein Property Explorer](projects/2026-05-24-protein-property-explorer) |
 | 2026-05-24 | Bioinformatics | [Simple Sequence Alignment](projects/2026-05-24-simple-sequence-alignment) |
 | 2026-05-24 | Productivity/Workflow Helper | [Lab Report Organizer](projects/2026-05-24-lab-report-organizer) |
+| 2026-05-26 | Productivity/Workflow Helper | [Medical Coding Helper](projects/2026-05-26-medical-coding-helper) |
 
 ## Portfolio Focus
 
