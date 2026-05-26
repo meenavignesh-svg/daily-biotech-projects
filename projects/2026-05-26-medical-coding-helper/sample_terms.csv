@@ -1,0 +1,9 @@
+term,category,example_code,meaning
+Blood Glucose Test,Biochemistry,LAB-GLU,Measures glucose level in blood sample
+Complete Blood Count,Hematology,LAB-CBC,Counts major blood cell types
+Hemoglobin Estimate,Hematology,LAB-HB,Estimates hemoglobin concentration
+Urine Protein Test,Clinical Biochemistry,LAB-UPR,Checks protein presence in urine sample
+Gram Stain,Microbiology,LAB-GST,Classifies bacteria based on staining pattern
+Antibiotic Sensitivity Test,Microbiology,LAB-AST,Checks bacterial response to selected antibiotics
+Blood Grouping,Immunology,LAB-BGR,Identifies ABO and Rh blood group
+Serum Creatinine,Biochemistry,LAB-SCR,Measures creatinine level as a kidney function marker
