@@ -10,10 +10,10 @@ I am building small, practical projects that connect biotechnology concepts with
 
 | Metric | Count |
 | --- | ---: |
-| Total projects | 11 |
+| Total projects | 12 |
 | Bioinformatics | 6 |
 | Productivity/Workflow Helper | 3 |
-| AI | 1 |
+| AI | 2 |
 | Data Analysis | 1 |
 
 ## Learning Tracks
@@ -42,6 +42,7 @@ I am building small, practical projects that connect biotechnology concepts with
 | Date | Project | Skill Focus |
 | --- | --- | --- |
 | 2026-05-26 | [Biotech Term Chat Helper](projects/2026-05-26-biotech-term-chat-helper) | Beginner biotechnology Q&A and dictionary-style responses |
+| 2026-05-26 | [Biotech Term Chat Helper 2](projects/2026-05-26-biotech-term-chat-helper-2) | Beginner biotechnology Q&A and dictionary-style responses |
 
 ### Data Analysis
 
@@ -69,6 +70,7 @@ Each project aims to include:
 | 2026-05-24 | Bioinformatics | [Protein Property Explorer](projects/2026-05-24-protein-property-explorer) |
 | 2026-05-24 | Bioinformatics | [Simple Sequence Alignment](projects/2026-05-24-simple-sequence-alignment) |
 | 2026-05-26 | AI | [Biotech Term Chat Helper](projects/2026-05-26-biotech-term-chat-helper) |
+| 2026-05-26 | AI | [Biotech Term Chat Helper 2](projects/2026-05-26-biotech-term-chat-helper-2) |
 | 2026-05-26 | Data Analysis | [Gene Expression Mini Summary](projects/2026-05-26-gene-expression-mini-summary) |
 | 2026-05-26 | Productivity/Workflow Helper | [Medical Coding Helper](projects/2026-05-26-medical-coding-helper) |
 | 2026-05-26 | Productivity/Workflow Helper | [PDF Lab Table Extractor](projects/2026-05-26-pdf-lab-table-extractor) |
