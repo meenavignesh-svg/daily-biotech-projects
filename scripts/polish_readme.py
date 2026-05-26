@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 README_PATH = ROOT / "README.md"
+PAGES_BASE_URL = "https://meenavignesh-svg.github.io/daily-biotech-projects"
 TRACKS = {
     "bioinformatics": "Bioinformatics",
     "lab-data-analysis": "Lab Data Analysis",
@@ -52,9 +53,11 @@ def project_meta(folder_name: str, path: Path) -> dict[str, str]:
     skill = extract_section(text, "What I Practiced") or extract_section(text, "Biology / Data Concept")
     if skill.startswith("-"):
         skill = clean_text(skill.replace("-", " "))
+    path_text = f"{folder_name}/{path.name}"
     return {
         "folder": folder_name,
-        "path": f"{folder_name}/{path.name}",
+        "path": path_text,
+        "live": f"{PAGES_BASE_URL}/{path_text}/",
         "title": title,
         "skill": skill or "Computational biotechnology project with reproducible Python output",
     }
@@ -83,6 +86,8 @@ def build_readme(projects: list[dict[str, str]]) -> str:
         "",
         "A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.",
         "",
+        f"**Live portfolio site:** {PAGES_BASE_URL}/",
+        "",
         "## Why this portfolio matters",
         "",
         "This repository shows my ability to use Python for biotechnology, bioinformatics, lab data cleaning, healthcare data handling, and scientific reporting.",
@@ -107,20 +112,16 @@ def build_readme(projects: list[dict[str, str]]) -> str:
         "",
     ]
     lines.extend(roadmap_status(projects))
-    lines.extend([
-        "",
-        "## Completed Portfolio Projects",
-        "",
-    ])
+    lines.extend(["", "## Completed Portfolio Projects", ""])
     for folder, label in TRACKS.items():
         folder_projects = [project for project in projects if project["folder"] == folder]
         lines.extend([f"### {label}", ""])
         if not folder_projects:
             lines.extend(["Projects will be added here as this portfolio grows.", ""])
             continue
-        lines.extend(["| Project | Skill shown |", "| --- | --- |"])
+        lines.extend(["| Project | Live page | Skill shown |", "| --- | --- | --- |"])
         for project in folder_projects:
-            lines.append(f"| [{project['title']}]({project['path']}) | {project['skill']} |")
+            lines.append(f"| [{project['title']}]({project['path']}) | [View page]({project['live']}) | {project['skill']} |")
         lines.append("")
     lines.extend([
         "## Project Standard",
@@ -130,6 +131,7 @@ def build_readme(projects: list[dict[str, str]]) -> str:
         "- Sample biological, lab, or healthcare-data input",
         "- Example output",
         "- A README with job skill, result, and interview explanation value",
+        "- A deployed GitHub Pages project page",
         "- A resume bullet collected in [RESUME_BULLETS.md](RESUME_BULLETS.md)",
         "",
         "## Author",
