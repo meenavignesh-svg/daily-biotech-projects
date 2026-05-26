@@ -1,0 +1,36 @@
+name: Daily Biotech Project
+
+on:
+  schedule:
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create daily project
+        run: python scripts/daily_project_builder.py
+
+      - name: Commit daily project
+        run: |
+          git config user.name "Meena Vignesh M"
+          git config user.email "meenavignesh6789@gmail.com"
+          git add README.md projects/
+          if git diff --cached --quiet; then
+            echo "No project changes to commit."
+          else
+            git commit -m "Add daily biotech project"
+            git push
+          fi
