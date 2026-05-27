@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primer Quality Checker</title>
+  <style>
+:root { color-scheme: dark; --ink: #eefcf8; --muted: #9fb8b4; --line: rgba(191,231,223,.18); --accent: #49e2b5; --accent2: #9ad8ff; }
+* { box-sizing: border-box; } body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: radial-gradient(circle at 20% 0%, #17383b 0, transparent 32rem), linear-gradient(135deg, #071012, #0b161c 52%, #071012); line-height: 1.6; } a { color: var(--accent); text-decoration: none; } .wrap { width: min(1160px, calc(100% - 34px)); margin: 0 auto; } .hero { min-height: 70vh; display: grid; align-items: center; border-bottom: 1px solid var(--line); } .kicker { color: var(--accent); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; } h1 { max-width: 900px; margin: 14px 0 18px; font-size: clamp(42px, 8vw, 88px); line-height: .95; } .lead { max-width: 760px; color: #cbe2de; font-size: clamp(17px, 2.2vw, 23px); } .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; } .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); font-weight: 750; } .button.primary { background: var(--accent); color: #04201a; border-color: transparent; } main { padding: 56px 0 74px; } h2 { margin: 0 0 12px; font-size: clamp(25px, 4vw, 40px); line-height: 1.1; } h3 { margin-top: 20px; } .case-grid { display: grid; grid-template-columns: minmax(0,.92fr) minmax(320px,1.08fr); gap: 18px; align-items: start; } .panel { border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)); border-radius: 8px; padding: 22px; margin-top: 18px; box-shadow: 0 22px 60px rgba(0,0,0,.24); } pre { overflow-x: auto; border: 1px solid rgba(154,216,255,.22); background: #05090d; color: #d8fff2; padding: 18px; border-radius: 8px; } code { font-family: Consolas, Monaco, monospace; font-size: 13px; } footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--muted); }
+@media (max-width: 860px) { .case-grid { grid-template-columns: 1fr; } .hero { min-height: auto; padding: 72px 0; } }
+  </style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <div class="kicker">Bioinformatics</div>
+  <h1>Primer Quality Checker</h1>
+  <p class="lead">A PCR primer review tool that checks sequence length, GC content, and simple melting temperature rules.</p>
+  <div class="hero-actions"><a class="button primary" href="https://github.com/meenavignesh-svg/daily-biotech-projects/tree/main/bioinformatics/03-primer-quality-checker">View source files</a><a class="button" href="../../">Portfolio home</a></div>
+</div></header>
+<main><div class="wrap">
+<div class="case-grid">
+  <section class="panel"><h2>Case Study</h2><h3>Purpose</h3><p>This project checks beginner PCR primer quality using simple sequence rules.</p><h3>Result</h3><p>This tool converts raw primer sequences into a clean review report.</p><h3>Skills Demonstrated</h3><ul><li>Python scripting</li><li>CSV/FASTA data handling</li><li>Basic biotechnology interpretation</li><li>Reproducible command-line workflow</li><li>Scientific reporting</li></ul></section>
+  <section class="panel"><h2>Scientific Context</h2><p>PCR primers are often screened by length, GC content, and melting temperature before experiments.</p><h3>What I Practiced</h3><ul><li>Primer quality checks</li><li>GC percentage</li><li>Simple melting temperature</li><li>Condition-based reporting</li></ul></section>
+</div>
+<section class="panel"><h2>Example Output</h2><pre><code>Primer Quality Checker
+forward_good: PASS | length=20 | GC=50.0% | Tm=60 C | basic checks passed
+reverse_low_gc: REVIEW | length=18 | GC=33.3% | Tm=48 C | GC content outside 40-60%; melting temperature outside 50-65 C
+short_primer: REVIEW | length=10 | GC=50.0% | Tm=30 C | length outside 18-25 bases; melting temperature outside 50-65 C
+high_gc: REVIEW | length=18 | GC=88.9% | Tm=68 C | GC content outside 40-60%; melting temperature outside 50-65 C</code></pre></section>
+<section class="panel"><h2>Main Python Code</h2><pre><code>def gc_content(sequence: str) -> float:
+    return ((sequence.count("G") + sequence.count("C")) / len(sequence)) * 100 if sequence else 0.0
+
+
+def melting_temperature(sequence: str) -> int:
+    return 2 * (sequence.count("A") + sequence.count("T")) + 4 * (sequence.count("G") + sequence.count("C"))</code></pre></section>
+</div></main>
+<footer><div class="wrap">Meena Vignesh M - Computational biotechnology, bioinformatics, lab data, and healthcare-data portfolio.</div></footer>
+</body>
+</html>
