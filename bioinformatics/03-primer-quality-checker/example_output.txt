@@ -1,0 +1,5 @@
+Primer Quality Checker
+forward_good: PASS | length=20 | GC=50.0% | Tm=60 C | basic checks passed
+reverse_low_gc: REVIEW | length=18 | GC=33.3% | Tm=48 C | GC content outside 40-60%; melting temperature outside 50-65 C
+short_primer: REVIEW | length=10 | GC=50.0% | Tm=30 C | length outside 18-25 bases; melting temperature outside 50-65 C
+high_gc: REVIEW | length=18 | GC=88.9% | Tm=68 C | GC content outside 40-60%; melting temperature outside 50-65 C
