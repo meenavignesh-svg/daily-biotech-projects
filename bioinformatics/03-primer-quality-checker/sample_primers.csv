@@ -1,0 +1,5 @@
+primer,sequence
+forward_good,ATGCGTACGTTAGCTAGCTA
+reverse_low_gc,TTTAAAGGGCCCTTTAAA
+short_primer,ATGCGTACGT
+high_gc,GGGCGCGCGGCCGCGCGG
