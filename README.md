@@ -30,7 +30,7 @@ I am targeting entry-level roles/internships in:
 | --- | --- | --- |
 | Bioinformatics | 01 DNA FASTA analyzer | Done |
 | Bioinformatics | 02 Protein property calculator | Done |
-| Bioinformatics | 03 Primer quality checker | Planned |
+| Bioinformatics | 03 Primer quality checker | Done |
 | Lab Data Analysis | 04 Gene expression fold-change analysis | Planned |
 | Lab Data Analysis | 05 ELISA/OD data analyzer | Planned |
 | Lab Data Analysis | 06 Microbial growth curve analyzer | Planned |
@@ -47,6 +47,7 @@ I am targeting entry-level roles/internships in:
 | --- | --- | --- |
 | [DNA FASTA Analyzer](bioinformatics/01-dna-fasta-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/01-dna-fasta-analyzer/) | FASTA parsing, nucleotide counting, GC content reporting, transcription basics, and scientific reporting |
 | [Protein Property Calculator](bioinformatics/02-protein-property-calculator) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/02-protein-property-calculator/) | Protein sequence cleaning, amino acid composition, approximate molecular weight, and residue class reporting |
+| [Primer Quality Checker](bioinformatics/03-primer-quality-checker) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/03-primer-quality-checker/) | Primer QC, GC percentage, simple melting temperature, and beginner PCR design checks |
 
 ### Lab Data Analysis
 
