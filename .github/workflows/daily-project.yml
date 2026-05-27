@@ -48,7 +48,7 @@ jobs:
         run: |
           git config user.name "Meena Vignesh M"
           git config user.email "meenavignesh6789@gmail.com"
-          git add README.md RESUME_BULLETS.md docs/ bioinformatics/ lab-data-analysis/ medical-coding-healthcare-data/ biotech-ai-tools/ scripts/
+          git add -A
           if git diff --cached --quiet; then
             echo "No portfolio changes to commit."
           else
