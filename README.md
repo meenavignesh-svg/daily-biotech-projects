@@ -31,7 +31,7 @@ I am targeting entry-level roles/internships in:
 | Bioinformatics | 01 DNA FASTA analyzer | Done |
 | Bioinformatics | 02 Protein property calculator | Done |
 | Bioinformatics | 03 Primer quality checker | Done |
-| Lab Data Analysis | 04 Gene expression fold-change analysis | Planned |
+| Lab Data Analysis | 04 Gene expression fold-change analysis | Done |
 | Lab Data Analysis | 05 ELISA/OD data analyzer | Planned |
 | Lab Data Analysis | 06 Microbial growth curve analyzer | Planned |
 | Lab Data Analysis | 07 Lab report table cleaner | Planned |
@@ -51,7 +51,9 @@ I am targeting entry-level roles/internships in:
 
 ### Lab Data Analysis
 
-Projects will be added here as this portfolio grows.
+| Project | Live page | Skill shown |
+| --- | --- | --- |
+| [Gene Expression Fold-Change Analysis](lab-data-analysis/04-gene-expression-fold-change-analysis) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/04-gene-expression-fold-change-analysis/) | Gene expression CSV analysis, fold-change calculation, and treatment-control comparison |
 
 ### Medical Coding / Healthcare Data
 
