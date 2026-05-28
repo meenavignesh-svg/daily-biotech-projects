@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Protein Property Calculator</title>
+  <title>ELISA OD Data Analyzer</title>
   <style>
 :root { color-scheme: light; --bg: #f7faf9; --paper: #ffffff; --soft: #edf7f4; --ink: #12201d; --muted: #5d6f69; --line: #dbe7e3; --accent: #087f68; --blue: #2563eb; --gold: #946200; }
 * { box-sizing: border-box; }
@@ -51,102 +51,56 @@ footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--muted)
 <body>
 
 <header class="hero"><div class="wrap">
-  <div class="kicker">Bioinformatics</div>
-  <h1>Protein Property Calculator</h1>
-  <p class="lead">Protein properties can be estimated from amino acid composition and residue masses. This is not a replacement for advanced protein analysis, but it is a strong starting point for learning sequence-based biotechnology tools.</p>
-  <div class="hero-actions"><a class="button primary" href="https://github.com/meenavignesh-svg/daily-biotech-projects/tree/main/bioinformatics/02-protein-property-calculator">View source files</a><a class="button" href="../../">Portfolio home</a></div>
+  <div class="kicker">Lab Data Analysis</div>
+  <h1>ELISA OD Data Analyzer</h1>
+  <p class="lead">ELISA plate readings use optical density values to compare relative signal across samples.</p>
+  <div class="hero-actions"><a class="button primary" href="https://github.com/meenavignesh-svg/daily-biotech-projects/tree/main/lab-data-analysis/05-elisa-od-data-analyzer">View source files</a><a class="button" href="../../">Portfolio home</a></div>
 </div></header>
 
 <main><div class="wrap">
 <div class="case-grid">
-  <section class="panel"><h2>Case Study</h2><h3>Purpose</h3><p>This project converts a protein sequence into a clean property summary. I built it to practice connecting amino acid sequence data with useful beginner-level protein interpretation.</p><h3>Result</h3><p>This tool converts raw biological/lab data into a clean summary report.</p><h3>Skills Demonstrated</h3><ul>
+  <section class="panel"><h2>Case Study</h2><h3>Purpose</h3><p>This project turns a small biotechnology or healthcare-data task into a reproducible Python workflow. I built it to practice both the science concept and the coding steps clearly.</p><h3>Result</h3><p>This tool converts raw biological/lab data into a clean summary report.</p><h3>Skills Demonstrated</h3><ul>
 <li>Python scripting</li>
 <li>CSV/FASTA data handling</li>
 <li>Basic biotechnology interpretation</li>
 <li>Reproducible command-line workflow</li>
 <li>Scientific reporting</li>
 </ul></section>
-  <section class="panel"><h2>Scientific Context</h2><p>Protein properties can be estimated from amino acid composition and residue masses. This is not a replacement for advanced protein analysis, but it is a strong starting point for learning sequence-based biotechnology tools.</p><h3>What I Practiced</h3><ul>
-<li>Protein sequence cleaning, amino acid composition, and approximate molecular weight reporting</li>
-<li>String validation, dictionaries, numeric calculations, and reusable functions</li>
-<li>Writing a project as a small bioinformatics case study instead of only a code file</li>
+  <section class="panel"><h2>Scientific Context</h2><p>ELISA plate readings use optical density values to compare relative signal across samples.</p><h3>What I Practiced</h3><ul>
+<li>ELISA optical density summarization, replicate averaging, and sample ranking</li>
+<li>Grouping rows, averaging replicates, sorting values, and reporting clean results</li>
+<li>Writing a README that explains the project like a scientific mini-report</li>
 </ul></section>
 </div>
-<section class="panel"><h2>Example Output</h2><pre><code>Protein Property Calculator
-Length: 22 amino acids
-Approximate molecular weight: 3120.67 Da
-Hydrophobic residues: 9 (40.9%)
-Charged residues: 7 (31.8%)
-Composition:
-  A: 2
-  F: 2
-  H: 1
-  I: 2
-  K: 3
-  M: 1
-  Q: 2
-  R: 2
-  S: 3
-  T: 1
-  V: 1
-  Y: 1
+<section class="panel"><h2>Example Output</h2><pre><code>treated: average OD450=0.695 from 2 replicates
+control: average OD450=0.220 from 2 replicates
 </code></pre></section>
-<section class="panel"><h2>Main Python Code</h2><pre><code>&quot;&quot;&quot;Calculate beginner-friendly protein sequence properties.&quot;&quot;&quot;
+<section class="panel"><h2>Main Python Code</h2><pre><code>&quot;&quot;&quot;Average ELISA OD readings from replicate sample rows.&quot;&quot;&quot;
 
 from __future__ import annotations
 
 import argparse
+import csv
+from collections import defaultdict
 from pathlib import Path
-
-AMINO_ACID_MASS = {
-    &quot;A&quot;: 89.09, &quot;R&quot;: 174.20, &quot;N&quot;: 132.12, &quot;D&quot;: 133.10, &quot;C&quot;: 121.15,
-    &quot;E&quot;: 147.13, &quot;Q&quot;: 146.15, &quot;G&quot;: 75.07, &quot;H&quot;: 155.16, &quot;I&quot;: 131.17,
-    &quot;L&quot;: 131.17, &quot;K&quot;: 146.19, &quot;M&quot;: 149.21, &quot;F&quot;: 165.19, &quot;P&quot;: 115.13,
-    &quot;S&quot;: 105.09, &quot;T&quot;: 119.12, &quot;W&quot;: 204.23, &quot;Y&quot;: 181.19, &quot;V&quot;: 117.15,
-}
-
-HYDROPHOBIC = set(&quot;AILMFWYV&quot;)
-CHARGED = set(&quot;RHKDE&quot;)
-
-
-def clean_sequence(text: str) -&gt; str:
-    return &quot;&quot;.join(char for char in text.upper() if char in AMINO_ACID_MASS)
-
-
-def molecular_weight(sequence: str) -&gt; float:
-    return sum(AMINO_ACID_MASS[amino_acid] for amino_acid in sequence)
-
-
-def percent(part: int, total: int) -&gt; float:
-    return (part / total) * 100 if total else 0.0
-
-
-def composition(sequence: str) -&gt; dict[str, int]:
-    return {amino_acid: sequence.count(amino_acid) for amino_acid in sorted(set(sequence))}
 
 
 def main() -&gt; None:
-    parser = argparse.ArgumentParser(description=&quot;Calculate simple protein properties.&quot;)
-    parser.add_argument(&quot;sequence_file&quot;, type=Path)
-    args = parser.parse_args()
-
-    sequence = clean_sequence(args.sequence_file.read_text(encoding=&quot;utf-8&quot;))
-    hydrophobic_count = sum(1 for amino_acid in sequence if amino_acid in HYDROPHOBIC)
-    charged_count = sum(1 for amino_acid in sequence if amino_acid in CHARGED)
-
-    print(&quot;Protein Property Calculator&quot;)
-    print(f&quot;Length: {len(sequence)} amino acids&quot;)
-    print(f&quot;Approximate molecular weight: {molecular_weight(sequence):.2f} Da&quot;)
-    print(f&quot;Hydrophobic residues: {hydrophobic_count} ({percent(hydrophobic_count, len(sequence)):.1f}%)&quot;)
-    print(f&quot;Charged residues: {charged_count} ({percent(charged_count, len(sequence)):.1f}%)&quot;)
-    print(&quot;Composition:&quot;)
-    for amino_acid, count in composition(sequence).items():
-        print(f&quot;  {amino_acid}: {count}&quot;)
+  parser = argparse.ArgumentParser(description=&quot;Summarize ELISA OD values by sample.&quot;)
+  parser.add_argument(&quot;csv_file&quot;, type=Path)
+  args = parser.parse_args()
+  readings: dict[str, list[float]] = defaultdict(list)
+  with args.csv_file.open(&quot;r&quot;, encoding=&quot;utf-8&quot;, newline=&quot;&quot;) as file:
+    for row in csv.DictReader(file):
+      readings[row[&quot;sample&quot;]].append(float(row[&quot;od450&quot;]))
+  print(&quot;ELISA OD Data Analyzer&quot;)
+  for sample, values in sorted(readings.items(), key=lambda item: sum(item[1]) / len(item[1]), reverse=True):
+    average = sum(values) / len(values)
+    print(f&quot;{sample}: average OD450={average:.3f} from {len(values)} replicates&quot;)
 
 
 if __name__ == &quot;__main__&quot;:
-    main()
-</code></pre></section>
+  main()</code></pre></section>
 </div></main>
 <footer><div class="wrap">Meena Vignesh M - Biotechnology, bioinformatics, lab data, and healthcare-data portfolio.</div></footer>
 </body>

@@ -5,22 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DNA FASTA Analyzer</title>
   <style>
-:root { color-scheme: dark; --bg: #071012; --ink: #eefcf8; --muted: #9fb8b4; --line: rgba(191,231,223,.18); --accent: #49e2b5; --accent2: #9ad8ff; --gold: #f7d774; }
-* { box-sizing: border-box; } body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: radial-gradient(circle at 20% 0%, #17383b 0, transparent 32rem), linear-gradient(135deg, #071012, #0b161c 52%, #071012); line-height: 1.6; } a { color: var(--accent); text-decoration: none; } .wrap { width: min(1160px, calc(100% - 34px)); margin: 0 auto; } .hero { min-height: 70vh; display: grid; align-items: center; border-bottom: 1px solid var(--line); } .kicker { color: var(--accent); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; } h1 { max-width: 900px; margin: 14px 0 18px; font-size: clamp(42px, 8vw, 88px); line-height: .95; } .lead { max-width: 760px; color: #cbe2de; font-size: clamp(17px, 2.2vw, 23px); } .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; } .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); font-weight: 750; } .button.primary { background: var(--accent); color: #04201a; border-color: transparent; } main { padding: 56px 0 74px; } h2 { margin: 0 0 12px; font-size: clamp(25px, 4vw, 40px); line-height: 1.1; } h3 { margin-top: 20px; } .case-grid { display: grid; grid-template-columns: minmax(0,.92fr) minmax(320px,1.08fr); gap: 18px; align-items: start; } .panel { border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035)); border-radius: 8px; padding: 22px; margin-top: 18px; box-shadow: 0 22px 60px rgba(0,0,0,.24); } .pill { display: inline-flex; padding: 5px 9px; border-radius: 999px; color: #051513; background: var(--accent); font-size: 12px; font-weight: 850; } pre { overflow-x: auto; border: 1px solid rgba(154,216,255,.22); background: #05090d; color: #d8fff2; padding: 18px; border-radius: 8px; } code { font-family: Consolas, Monaco, monospace; font-size: 13px; } footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--muted); }
-@media (max-width: 860px) { .case-grid { grid-template-columns: 1fr; } .hero { min-height: auto; padding: 72px 0; } }
-  </style>
+:root { color-scheme: light; --bg: #f7faf9; --paper: #ffffff; --soft: #edf7f4; --ink: #12201d; --muted: #5d6f69; --line: #dbe7e3; --accent: #087f68; --blue: #2563eb; --gold: #946200; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: linear-gradient(180deg, #f7faf9, #eef6f3); line-height: 1.58; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { width: min(1180px, calc(100% - 34px)); margin: 0 auto; }
+.hero { min-height: 74vh; display: grid; align-items: center; border-bottom: 1px solid var(--line); background: radial-gradient(circle at 86% 18%, #dff3ee 0, transparent 24rem), linear-gradient(135deg, #ffffff, #f3faf7); }
+.kicker { color: var(--accent); font-weight: 850; letter-spacing: .11em; text-transform: uppercase; font-size: 12px; }
+h1 { max-width: 990px; margin: 14px 0 18px; font-size: clamp(40px, 7.4vw, 88px); line-height: .98; letter-spacing: 0; }
+.lead { max-width: 810px; color: #41524d; font-size: clamp(17px, 2.1vw, 22px); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-weight: 760; box-shadow: 0 8px 22px rgba(20,50,43,.08); }
+.button.primary { background: var(--accent); color: #ffffff; border-color: transparent; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 34px; max-width: 850px; }
+.stat { border: 1px solid var(--line); background: rgba(255,255,255,.78); border-radius: 8px; padding: 15px; box-shadow: 0 8px 28px rgba(23,66,56,.08); }
+.stat strong { display: block; font-size: 30px; line-height: 1; color: var(--accent); }
+.stat span { color: var(--muted); font-size: 13px; }
+main { padding: 58px 0 78px; }
+.section-title { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 0 0 18px; }
+.section-title p { color: var(--muted); max-width: 500px; }
+h2 { margin: 0; font-size: clamp(25px, 4vw, 42px); line-height: 1.08; }
+h3 { margin: 14px 0 8px; font-size: 22px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 16px; }
+.card, .panel { position: relative; overflow: hidden; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 21px; box-shadow: 0 14px 42px rgba(20,50,43,.08); }
+.card { min-height: 218px; }
+.card:before, .panel:before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--accent), var(--blue), #d9a441); }
+.pill { display: inline-flex; padding: 5px 9px; border-radius: 999px; color: var(--accent); background: var(--soft); font-size: 12px; font-weight: 850; }
+.proof { display: grid; grid-template-columns: 1.1fr .9fr; gap: 16px; margin-bottom: 48px; }
+.matrix { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 8px; }
+.matrix th, .matrix td { padding: 13px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.matrix th { color: var(--accent); background: var(--soft); }
+.timeline { display: grid; gap: 10px; }
+.step { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start; }
+.num { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--soft); border: 1px solid var(--line); color: var(--accent); font-weight: 850; }
+.case-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(320px, 1.08fr); gap: 18px; align-items: start; }
+ul { padding-left: 20px; }
+pre { overflow-x: auto; border: 1px solid #cfdcd8; background: #0f172a; color: #e2f7ef; padding: 18px; border-radius: 8px; }
+code { font-family: Consolas, Monaco, monospace; font-size: 13px; }
+footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--muted); background: #ffffff; }
+@media (max-width: 860px) { .case-grid, .proof { grid-template-columns: 1fr; } .hero { min-height: auto; padding: 72px 0; } .section-title { display: block; } }
+</style>
 </head>
 <body>
+
 <header class="hero"><div class="wrap">
   <div class="kicker">Bioinformatics</div>
   <h1>DNA FASTA Analyzer</h1>
-  <p class="lead">DNA sequences summarized by base frequency, GC percentage, and RNA transcription output.</p>
+  <p class="lead">DNA sequences can be summarized by base frequency, GC percentage, and RNA transcription output.</p>
   <div class="hero-actions"><a class="button primary" href="https://github.com/meenavignesh-svg/daily-biotech-projects/tree/main/bioinformatics/01-dna-fasta-analyzer">View source files</a><a class="button" href="../../">Portfolio home</a></div>
 </div></header>
+
 <main><div class="wrap">
 <div class="case-grid">
-  <section class="panel"><h2>Case Study</h2><h3>Purpose</h3><p>This project turns a small biotechnology task into a reproducible Python workflow.</p><h3>Result</h3><p>This tool converts raw FASTA sequence data into a clean summary report.</p><h3>Skills Demonstrated</h3><ul><li>Python scripting</li><li>CSV/FASTA data handling</li><li>Basic biotechnology interpretation</li><li>Reproducible command-line workflow</li><li>Scientific reporting</li></ul></section>
-  <section class="panel"><h2>Scientific Context</h2><p>GC content, base frequency, and transcription output are beginner-friendly ways to inspect DNA sequence data before deeper analysis.</p><h3>What I Practiced</h3><ul><li>FASTA parsing and nucleotide counting</li><li>Dictionary-based summaries</li><li>Readable scientific output</li></ul></section>
+  <section class="panel"><h2>Case Study</h2><h3>Purpose</h3><p>This project turns a small biotechnology or healthcare-data task into a reproducible Python workflow. I built it to practice both the science concept and the coding steps clearly.</p><h3>Result</h3><p>This tool converts raw biological/lab data into a clean summary report.</p><h3>Skills Demonstrated</h3><ul>
+<li>Python scripting</li>
+<li>CSV/FASTA data handling</li>
+<li>Basic biotechnology interpretation</li>
+<li>Reproducible command-line workflow</li>
+<li>Scientific reporting</li>
+</ul></section>
+  <section class="panel"><h2>Scientific Context</h2><p>DNA sequences can be summarized by base frequency, GC percentage, and RNA transcription output.</p><h3>What I Practiced</h3><ul>
+<li>FASTA parsing, nucleotide counting, GC content reporting, and transcription basics</li>
+<li>Reading text files, dictionaries, loops, and formatted report output</li>
+<li>Writing a README that explains the project like a scientific mini-report</li>
+</ul></section>
 </div>
 <section class="panel"><h2>Example Output</h2><pre><code>DNA FASTA Analyzer
 
@@ -34,16 +84,71 @@ Sequence: sample_gene_B
 Length: 14 bases
 A=3 T=3 G=5 C=3
 GC content: 57.14%
-RNA transcript: GGGAAAUUUCCCGC</code></pre></section>
-<section class="panel"><h2>Main Python Code</h2><pre><code>def gc_content(sequence: str) -> float:
+RNA transcript: GGGAAAUUUCCCGC
+</code></pre></section>
+<section class="panel"><h2>Main Python Code</h2><pre><code>&quot;&quot;&quot;Analyze a small DNA FASTA file and print a clean sequence report.&quot;&quot;&quot;
+
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+
+def read_fasta(path: Path) -&gt; dict[str, str]:
+    records: dict[str, str] = {}
+    current_name = &quot;&quot;
+    parts: list[str] = []
+    for line in path.read_text(encoding=&quot;utf-8&quot;).splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith(&quot;&gt;&quot;):
+            if current_name:
+                records[current_name] = &quot;&quot;.join(parts).upper()
+            current_name = line[1:].strip()
+            parts = []
+        else:
+            parts.append(line)
+    if current_name:
+        records[current_name] = &quot;&quot;.join(parts).upper()
+    return records
+
+
+def gc_content(sequence: str) -&gt; float:
     if not sequence:
         return 0.0
-    gc_count = sequence.count("G") + sequence.count("C")
+    gc_count = sequence.count(&quot;G&quot;) + sequence.count(&quot;C&quot;)
     return (gc_count / len(sequence)) * 100
 
-def transcribe(sequence: str) -> str:
-    return sequence.replace("T", "U")</code></pre></section>
+
+def transcribe(sequence: str) -&gt; str:
+    return sequence.replace(&quot;T&quot;, &quot;U&quot;)
+
+
+def summarize(records: dict[str, str]) -&gt; str:
+    lines = [&quot;DNA FASTA Analyzer&quot;, &quot;&quot;]
+    for name, sequence in records.items():
+        counts = {base: sequence.count(base) for base in &quot;ATGC&quot;}
+        lines.append(f&quot;Sequence: {name}&quot;)
+        lines.append(f&quot;Length: {len(sequence)} bases&quot;)
+        lines.append(f&quot;A={counts[&#x27;A&#x27;]} T={counts[&#x27;T&#x27;]} G={counts[&#x27;G&#x27;]} C={counts[&#x27;C&#x27;]}&quot;)
+        lines.append(f&quot;GC content: {gc_content(sequence):.2f}%&quot;)
+        lines.append(f&quot;RNA transcript: {transcribe(sequence)}&quot;)
+        lines.append(&quot;&quot;)
+    return &quot;\n&quot;.join(lines).rstrip()
+
+
+def main() -&gt; None:
+    parser = argparse.ArgumentParser(description=&quot;Summarize DNA sequences from a FASTA file.&quot;)
+    parser.add_argument(&quot;fasta_file&quot;, type=Path)
+    args = parser.parse_args()
+    print(summarize(read_fasta(args.fasta_file)))
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre></section>
 </div></main>
-<footer><div class="wrap">Meena Vignesh M · Computational biotechnology, bioinformatics, lab data, and healthcare-data portfolio.</div></footer>
+<footer><div class="wrap">Meena Vignesh M - Biotechnology, bioinformatics, lab data, and healthcare-data portfolio.</div></footer>
 </body>
 </html>

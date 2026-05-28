@@ -1,0 +1,5 @@
+sample,replicate,od450
+control,1,0.21
+control,2,0.23
+treated,1,0.68
+treated,2,0.71

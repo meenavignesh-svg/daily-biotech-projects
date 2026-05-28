@@ -1,0 +1,2 @@
+treated: average OD450=0.695 from 2 replicates
+control: average OD450=0.220 from 2 replicates
