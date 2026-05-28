@@ -1,0 +1,6 @@
+Gene Expression Fold-Change Analysis
+IL6: control=10.00, treatment=24.00, fold_change=2.40, status=upregulated
+GAPDH: control=50.00, treatment=52.00, fold_change=1.04, status=similar
+TNF: control=18.00, treatment=8.00, fold_change=0.44, status=downregulated
+VEGFA: control=12.00, treatment=21.00, fold_change=1.75, status=upregulated
+ACTB: control=40.00, treatment=39.00, fold_change=0.97, status=similar
