@@ -4,6 +4,25 @@ A job-focused biotechnology, bioinformatics, and healthcare-data portfolio by **
 
 **Live portfolio site:** https://meenavignesh-svg.github.io/daily-biotech-projects/
 
+## For Dubai / UAE Recruiters
+
+I am building this portfolio to become useful for biotechnology, healthcare-data, lab informatics, and bioinformatics teams in Dubai and the UAE.
+
+I am especially interested in:
+- Biotechnology internship roles
+- Bioinformatics trainee roles
+- Lab data / lab informatics support roles
+- Healthcare-data and medical coding data roles
+- Entry-level Python data analysis work connected to biology or healthcare
+
+What I can already show:
+- I can write small Python tools for biological and lab-style data
+- I can document work clearly with sample input, output, and result explanation
+- I can learn consistently and turn topics into working portfolio projects
+- I can explain the biology meaning behind simple data outputs
+
+**Best fit right now:** internship, trainee, junior assistant, or project-based learning opportunity where I can contribute, learn fast, and grow under guidance.
+
 ## Recruiter Quick Scan
 
 This repository is built to show that I can turn biological and lab-style data into clean, reproducible Python tools with documentation, sample data, example outputs, and deployed project pages.
