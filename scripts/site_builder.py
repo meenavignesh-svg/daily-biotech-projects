@@ -1,4 +1,4 @@
-"""Build a premium static GitHub Pages site for every portfolio project."""
+"""Build a clean static GitHub Pages site for every portfolio project."""
 
 from __future__ import annotations
 
@@ -17,47 +17,46 @@ TRACKS = {
 }
 
 CSS = """
-:root { color-scheme: dark; --bg: #061113; --panel: rgba(255,255,255,.065); --panel2: rgba(255,255,255,.035); --ink: #eefcf8; --muted: #a8beba; --line: rgba(196,235,226,.18); --accent: #4de3b6; --blue: #99d7ff; --gold: #f4d06f; --rose: #ff9d9d; }
+:root { color-scheme: light; --bg: #f7faf9; --paper: #ffffff; --soft: #edf7f4; --ink: #12201d; --muted: #5d6f69; --line: #dbe7e3; --accent: #087f68; --blue: #2563eb; --gold: #946200; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: radial-gradient(circle at 12% 5%, rgba(77,227,182,.20), transparent 30rem), radial-gradient(circle at 90% 12%, rgba(153,215,255,.16), transparent 28rem), linear-gradient(135deg, #061113, #09171d 56%, #061113); line-height: 1.58; }
+body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif; color: var(--ink); background: linear-gradient(180deg, #f7faf9, #eef6f3); line-height: 1.58; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .wrap { width: min(1180px, calc(100% - 34px)); margin: 0 auto; }
-.hero { min-height: 82vh; display: grid; align-items: center; border-bottom: 1px solid var(--line); position: relative; overflow: hidden; }
-.hero:after { content: ""; position: absolute; right: -120px; bottom: -180px; width: 520px; height: 520px; border: 1px solid rgba(77,227,182,.24); border-radius: 50%; box-shadow: inset 0 0 80px rgba(77,227,182,.12); }
-.kicker { color: var(--accent); font-weight: 850; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; }
-h1 { max-width: 990px; margin: 14px 0 18px; font-size: clamp(42px, 8vw, 96px); line-height: .95; letter-spacing: 0; }
-.lead { max-width: 800px; color: #cde5e0; font-size: clamp(17px, 2.1vw, 23px); }
+.hero { min-height: 74vh; display: grid; align-items: center; border-bottom: 1px solid var(--line); background: radial-gradient(circle at 86% 18%, #dff3ee 0, transparent 24rem), linear-gradient(135deg, #ffffff, #f3faf7); }
+.kicker { color: var(--accent); font-weight: 850; letter-spacing: .11em; text-transform: uppercase; font-size: 12px; }
+h1 { max-width: 990px; margin: 14px 0 18px; font-size: clamp(40px, 7.4vw, 88px); line-height: .98; letter-spacing: 0; }
+.lead { max-width: 810px; color: #41524d; font-size: clamp(17px, 2.1vw, 22px); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--ink); font-weight: 760; }
-.button.primary { background: var(--accent); color: #04201a; border-color: transparent; }
+.button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-weight: 760; box-shadow: 0 8px 22px rgba(20,50,43,.08); }
+.button.primary { background: var(--accent); color: #ffffff; border-color: transparent; }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 34px; max-width: 850px; }
-.stat { border: 1px solid var(--line); background: rgba(255,255,255,.055); border-radius: 8px; padding: 15px; backdrop-filter: blur(10px); }
-.stat strong { display: block; font-size: 30px; line-height: 1; color: var(--gold); }
+.stat { border: 1px solid var(--line); background: rgba(255,255,255,.78); border-radius: 8px; padding: 15px; box-shadow: 0 8px 28px rgba(23,66,56,.08); }
+.stat strong { display: block; font-size: 30px; line-height: 1; color: var(--accent); }
 .stat span { color: var(--muted); font-size: 13px; }
 main { padding: 58px 0 78px; }
 .section-title { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 0 0 18px; }
-.section-title p { color: var(--muted); max-width: 480px; }
+.section-title p { color: var(--muted); max-width: 500px; }
 h2 { margin: 0; font-size: clamp(25px, 4vw, 42px); line-height: 1.08; }
 h3 { margin: 14px 0 8px; font-size: 22px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 16px; }
-.card, .panel { position: relative; overflow: hidden; border: 1px solid var(--line); background: linear-gradient(180deg, var(--panel), var(--panel2)); border-radius: 8px; padding: 21px; box-shadow: 0 22px 60px rgba(0,0,0,.25); }
+.card, .panel { position: relative; overflow: hidden; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 21px; box-shadow: 0 14px 42px rgba(20,50,43,.08); }
 .card { min-height: 218px; }
-.card:before, .panel:before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--accent), var(--blue), var(--gold)); }
-.pill { display: inline-flex; padding: 5px 9px; border-radius: 999px; color: #051513; background: var(--accent); font-size: 12px; font-weight: 850; }
+.card:before, .panel:before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--accent), var(--blue), #d9a441); }
+.pill { display: inline-flex; padding: 5px 9px; border-radius: 999px; color: var(--accent); background: var(--soft); font-size: 12px; font-weight: 850; }
 .proof { display: grid; grid-template-columns: 1.1fr .9fr; gap: 16px; margin-bottom: 48px; }
 .matrix { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 8px; }
 .matrix th, .matrix td { padding: 13px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
-.matrix th { color: var(--gold); background: rgba(255,255,255,.045); }
+.matrix th { color: var(--accent); background: var(--soft); }
 .timeline { display: grid; gap: 10px; }
 .step { display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start; }
-.num { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: rgba(77,227,182,.14); border: 1px solid var(--line); color: var(--accent); font-weight: 850; }
+.num { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--soft); border: 1px solid var(--line); color: var(--accent); font-weight: 850; }
 .case-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(320px, 1.08fr); gap: 18px; align-items: start; }
 ul { padding-left: 20px; }
-pre { overflow-x: auto; border: 1px solid rgba(153,215,255,.22); background: #05090d; color: #d8fff2; padding: 18px; border-radius: 8px; box-shadow: inset 0 1px 0 rgba(255,255,255,.06); }
+pre { overflow-x: auto; border: 1px solid #cfdcd8; background: #0f172a; color: #e2f7ef; padding: 18px; border-radius: 8px; }
 code { font-family: Consolas, Monaco, monospace; font-size: 13px; }
-footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--muted); }
+footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--muted); background: #ffffff; }
 @media (max-width: 860px) { .case-grid, .proof { grid-template-columns: 1fr; } .hero { min-height: auto; padding: 72px 0; } .section-title { display: block; } }
 """
 
@@ -117,7 +116,7 @@ def shell(title: str, hero: str, body: str) -> str:
 <body>
 {hero}
 <main><div class="wrap">{body}</div></main>
-<footer><div class="wrap">Meena Vignesh M - Computational biotechnology, bioinformatics, lab data, and healthcare-data portfolio.</div></footer>
+<footer><div class="wrap">Meena Vignesh M - Biotechnology, bioinformatics, lab data, and healthcare-data portfolio.</div></footer>
 </body>
 </html>
 """
@@ -155,7 +154,7 @@ def build_home(records: list[dict[str, str]]) -> str:
 <header class="hero"><div class="wrap">
   <div class="kicker">Computational Biotechnology Portfolio</div>
   <h1>Biotech data problems solved with code, evidence, and clear reporting.</h1>
-  <p class="lead">A focused first-year biotechnology portfolio by Meena Vignesh M, built around Python, biological data handling, scientific interpretation, and deployable case studies.</p>
+  <p class="lead">A focused first-year biotechnology portfolio by Meena Vignesh M, built for biotechnology, bioinformatics, lab informatics, and healthcare-data internship opportunities.</p>
   <div class="hero-actions"><a class="button primary" href="#projects">View projects</a><a class="button" href="https://github.com/meenavignesh-svg/daily-biotech-projects">Open GitHub repo</a></div>
   <div class="stats"><div class="stat"><strong>{project_count}</strong><span>completed case studies</span></div><div class="stat"><strong>{track_count}</strong><span>job-focused tracks</span></div><div class="stat"><strong>10</strong><span>core project roadmap</span></div><div class="stat"><strong>100%</strong><span>documented with sample data</span></div></div>
 </div></header>
@@ -172,8 +171,8 @@ def build_home(records: list[dict[str, str]]) -> str:
 """)
     body = """
 <section class="proof">
-  <div class="panel"><h2>Recruiter Quick Scan</h2><p>This portfolio is designed to prove practical employable behavior: reading scientific data, writing small Python tools, producing clean reports, and explaining biological meaning.</p><table class="matrix"><tr><th>Proof area</th><th>Evidence</th></tr><tr><td>Bioinformatics</td><td>FASTA parsing, nucleotide summaries, protein properties, PCR primer checks</td></tr><tr><td>Lab data analysis</td><td>CSV handling, fold-change analysis, result classification</td></tr><tr><td>Communication</td><td>Every project has purpose, concept, result, output, and code</td></tr></table></div>
-  <div class="panel"><h2>How I Build</h2><div class="timeline"><div class="step"><div class="num">1</div><div><strong>Choose a biotech problem</strong><br><span>Sequence, lab table, healthcare-data, or screening task.</span></div></div><div class="step"><div class="num">2</div><div><strong>Create a working tool</strong><br><span>Python script, sample input, and example output.</span></div></div><div class="step"><div class="num">3</div><div><strong>Explain the value</strong><br><span>README, resume bullet, and deployed case-study page.</span></div></div></div></div>
+  <div class="panel"><h2>For Recruiters, Labs, and Data Teams</h2><p>I am looking for internship, trainee, junior assistant, or project-based learning opportunities in biotechnology, bioinformatics, lab informatics, and healthcare data.</p><table class="matrix"><tr><th>Need</th><th>What I can show now</th></tr><tr><td>Biotech data curiosity</td><td>I turn biology topics into working Python tools with sample input and output.</td></tr><tr><td>Lab informatics mindset</td><td>I structure raw sequence and lab-style data into clean reports.</td></tr><tr><td>Trainability</td><td>I document every project so my thinking and learning path are visible.</td></tr></table></div>
+  <div class="panel"><h2>Best Fit Right Now</h2><div class="timeline"><div class="step"><div class="num">1</div><div><strong>Biotechnology internship</strong><br><span>Learning-focused role connected to lab or data workflows.</span></div></div><div class="step"><div class="num">2</div><div><strong>Bioinformatics trainee role</strong><br><span>Sequence analysis, Python basics, and reporting support.</span></div></div><div class="step"><div class="num">3</div><div><strong>Healthcare-data support</strong><br><span>Medical coding data, dashboards, and structured data cleaning.</span></div></div></div></div>
 </section>
 <div class="section-title"><h2>Skill Tracks</h2><p>Each track maps to an internship conversation: what data I can handle, what tools I can write, and how clearly I can explain results.</p></div>
 <div class="grid">
