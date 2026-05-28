@@ -1,6 +1,6 @@
 # Computational Biotechnology Portfolio
 
-A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
+A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, second-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
 
 **Live portfolio site:** https://meenavignesh-svg.github.io/daily-biotech-projects/
 
