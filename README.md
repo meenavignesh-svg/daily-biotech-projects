@@ -1,8 +1,20 @@
 # Computational Biotechnology Portfolio
 
-A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
+A job-focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
 
 **Live portfolio site:** https://meenavignesh-svg.github.io/daily-biotech-projects/
+
+## Recruiter Quick Scan
+
+This repository is built to show that I can turn biological and lab-style data into clean, reproducible Python tools with documentation, sample data, example outputs, and deployed project pages.
+
+| Proof area | What this portfolio shows |
+| --- | --- |
+| Bioinformatics | FASTA parsing, nucleotide summaries, protein properties, primer quality checks |
+| Lab data analysis | CSV handling, fold-change analysis, clean scientific reporting |
+| Healthcare data | Safe educational data mapping and dashboard-style summaries planned |
+| Communication | Every project includes purpose, method, result, and resume-ready skill evidence |
+| Deployment | Each main project has a GitHub Pages case-study page |
 
 ## Why this portfolio matters
 
@@ -15,6 +27,15 @@ I am targeting entry-level roles/internships in:
 - Lab informatics
 - AI-assisted biotech tools
 
+## Featured Projects
+
+| Project | Track | What it proves | Live page |
+| --- | --- | --- | --- |
+| [DNA FASTA Analyzer](bioinformatics/01-dna-fasta-analyzer) | Bioinformatics | Sequence parsing, GC content, transcription output | [View](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/01-dna-fasta-analyzer/) |
+| [Protein Property Calculator](bioinformatics/02-protein-property-calculator) | Bioinformatics | Amino acid composition and residue-property reporting | [View](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/02-protein-property-calculator/) |
+| [Primer Quality Checker](bioinformatics/03-primer-quality-checker) | Bioinformatics | PCR primer screening rules and clear QC output | [View](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/03-primer-quality-checker/) |
+| [Gene Expression Fold-Change Analysis](lab-data-analysis/04-gene-expression-fold-change-analysis) | Lab Data Analysis | Treatment-control comparison from CSV data | [View](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/04-gene-expression-fold-change-analysis/) |
+
 ## Portfolio Tracks
 
 | Track | Folder | Purpose |
@@ -23,6 +44,16 @@ I am targeting entry-level roles/internships in:
 | Lab Data Analysis | `lab-data-analysis/` | CSV cleaning, OD readings, growth curves, expression summaries |
 | Medical Coding / Healthcare Data | `medical-coding-healthcare-data/` | Safe educational healthcare-data mapping and summaries |
 | Biotech AI Tools | `biotech-ai-tools/` | Transparent biotech decision-support demos for learning |
+
+## Skill Matrix
+
+| Skill | Evidence in this repo |
+| --- | --- |
+| Python scripting | Command-line scripts with functions, file input, and formatted output |
+| Biological interpretation | GC content, transcription, protein residues, PCR primer checks, fold change |
+| Data handling | FASTA, TXT, and CSV input files with clean output reports |
+| Scientific reporting | Every project has purpose, concept, result, and example output |
+| Portfolio communication | Project pages are written like short case studies, not random code notes |
 
 ## Project Roadmap
 
@@ -38,30 +69,6 @@ I am targeting entry-level roles/internships in:
 | Medical Coding / Healthcare Data | 08 Medical coding term mapper | Planned |
 | Medical Coding / Healthcare Data | 09 Drug prescription data dashboard | Planned |
 | Biotech AI Tools | 10 BioSentinel risk-screening demo | Planned |
-
-## Completed Portfolio Projects
-
-### Bioinformatics
-
-| Project | Live page | Skill shown |
-| --- | --- | --- |
-| [DNA FASTA Analyzer](bioinformatics/01-dna-fasta-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/01-dna-fasta-analyzer/) | FASTA parsing, nucleotide counting, GC content reporting, transcription basics, and scientific reporting |
-| [Protein Property Calculator](bioinformatics/02-protein-property-calculator) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/02-protein-property-calculator/) | Protein sequence cleaning, amino acid composition, approximate molecular weight, and residue class reporting |
-| [Primer Quality Checker](bioinformatics/03-primer-quality-checker) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/03-primer-quality-checker/) | Primer QC, GC percentage, simple melting temperature, and beginner PCR design checks |
-
-### Lab Data Analysis
-
-| Project | Live page | Skill shown |
-| --- | --- | --- |
-| [Gene Expression Fold-Change Analysis](lab-data-analysis/04-gene-expression-fold-change-analysis) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/04-gene-expression-fold-change-analysis/) | Gene expression CSV analysis, fold-change calculation, and treatment-control comparison |
-
-### Medical Coding / Healthcare Data
-
-Projects will be added here as this portfolio grows.
-
-### Biotech AI Tools
-
-Projects will be added here as this portfolio grows.
 
 ## Project Standard
 
