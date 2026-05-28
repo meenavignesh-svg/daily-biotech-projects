@@ -4,9 +4,9 @@ A job-focused biotechnology, bioinformatics, and healthcare-data portfolio by **
 
 **Live portfolio site:** https://meenavignesh-svg.github.io/daily-biotech-projects/
 
-## For Dubai / UAE Recruiters
+## For Recruiters, Labs, and Data Teams
 
-I am building this portfolio to become useful for biotechnology, healthcare-data, lab informatics, and bioinformatics teams in Dubai and the UAE.
+I am building this portfolio to become useful for biotechnology, healthcare-data, lab informatics, and bioinformatics teams anywhere.
 
 I am especially interested in:
 - Biotechnology internship roles
