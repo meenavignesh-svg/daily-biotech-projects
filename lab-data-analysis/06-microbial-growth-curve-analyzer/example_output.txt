@@ -1,0 +1,2 @@
+Peak OD600: 1.10 at 8.0 hours
+Fastest increase: hour 4.0 to 6.0

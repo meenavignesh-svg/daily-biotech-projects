@@ -1,6 +1,6 @@
 # Computational Biotechnology Portfolio
 
-A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, second-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
+A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
 
 **Live portfolio site:** https://meenavignesh-svg.github.io/daily-biotech-projects/
 
@@ -33,7 +33,7 @@ I am targeting entry-level roles/internships in:
 | Bioinformatics | 03 Primer quality checker | Done |
 | Lab Data Analysis | 04 Gene expression fold-change analysis | Done |
 | Lab Data Analysis | 05 ELISA/OD data analyzer | Done |
-| Lab Data Analysis | 06 Microbial growth curve analyzer | Planned |
+| Lab Data Analysis | 06 Microbial growth curve analyzer | Done |
 | Lab Data Analysis | 07 Lab report table cleaner | Planned |
 | Medical Coding / Healthcare Data | 08 Medical coding term mapper | Planned |
 | Medical Coding / Healthcare Data | 09 Drug prescription data dashboard | Planned |
@@ -55,6 +55,7 @@ I am targeting entry-level roles/internships in:
 | --- | --- | --- |
 | [Gene Expression Fold-Change Analysis](lab-data-analysis/04-gene-expression-fold-change-analysis) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/04-gene-expression-fold-change-analysis/) | Gene expression CSV analysis, fold change calculation, and treatment control comparison CSV data handling, float conversion, division safety, and classification logic Writing a lab data report that can be explained in an interview |
 | [ELISA OD Data Analyzer](lab-data-analysis/05-elisa-od-data-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/05-elisa-od-data-analyzer/) | ELISA optical density summarization, replicate averaging, and sample ranking Grouping rows, averaging replicates, sorting values, and reporting clean results Writing a README that explains the project like a scientific mini report |
+| [Microbial Growth Curve Analyzer](lab-data-analysis/06-microbial-growth-curve-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/06-microbial-growth-curve-analyzer/) | OD600 time series analysis, growth phase observation, and peak growth reporting List processing, slope calculation, maximum detection, and readable summaries Writing a README that explains the project like a scientific mini report |
 
 ### Medical Coding / Healthcare Data
 

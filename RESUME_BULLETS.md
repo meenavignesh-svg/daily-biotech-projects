@@ -8,3 +8,4 @@ These are portfolio-ready bullets I can adapt for internship and entry-level app
 - Developed a gene expression summary tool using CSV data to compare control and treatment fold changes.
 - Created lab data cleaning scripts to convert unstructured experiment tables into structured CSV reports.
 - Built an ELISA OD data analyzer to average replicate readings and summarize relative sample signal from CSV data.
+- Created a microbial growth curve analyzer to summarize OD600 trends, peak reading, and fastest growth interval.
