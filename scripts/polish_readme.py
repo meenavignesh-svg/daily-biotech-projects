@@ -26,6 +26,16 @@ ROADMAP = [
     ("medical-coding-healthcare-data", "08 Medical coding term mapper"),
     ("medical-coding-healthcare-data", "09 Drug prescription data dashboard"),
     ("biotech-ai-tools", "10 BioSentinel risk-screening demo"),
+    ("bioinformatics", "11 Sequence variant impact annotator"),
+    ("bioinformatics", "12 Pairwise sequence alignment scorer"),
+    ("bioinformatics", "13 ORF finder and translation reporter"),
+    ("lab-data-analysis", "14 qPCR delta-delta Ct analyzer"),
+    ("lab-data-analysis", "15 LIMS sample tracker quality audit"),
+    ("lab-data-analysis", "16 Antibiotic zone of inhibition analyzer"),
+    ("medical-coding-healthcare-data", "17 Clinical lab reference range flagger"),
+    ("medical-coding-healthcare-data", "18 Diagnosis keyword triage classifier"),
+    ("biotech-ai-tools", "19 Adverse event signal counter"),
+    ("biotech-ai-tools", "20 Bioreactor batch anomaly screener"),
 ]
 
 
@@ -84,7 +94,7 @@ def build_readme(projects: list[dict[str, str]]) -> str:
     lines = [
         "# Computational Biotechnology Portfolio",
         "",
-        "A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.",
+        "A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, Biotechnology student at **Sethu Institute of Technology, Kariapatti**.",
         "",
         f"**Live portfolio site:** {PAGES_BASE_URL}/",
         "",
@@ -137,7 +147,7 @@ def build_readme(projects: list[dict[str, str]]) -> str:
         "## Author",
         "",
         "**Meena Vignesh M**  ",
-        "First-year Biotechnology student  ",
+        "Biotechnology student  ",
         "Sethu Institute of Technology, Kariapatti",
         "",
     ])
