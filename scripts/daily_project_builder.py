@@ -100,7 +100,7 @@ def next_project() -> Project:
     for item in roadmap():
         if not project_path(item).exists():
             return item
-    number = len([p for folder in TRACKS for p in (ROOT / folder).glob("*") if p.is_dir()]) + 1
+    number = len([path for folder in TRACKS for path in (ROOT / folder).glob("*") if path.is_dir()]) + 1
     return Project("lab-data-analysis", f"{number:02d}-biotech-research-quality-system-{datetime.now(IST):%Y-%m-%d}", "Biotech Research Quality System", "Research data quality checks, missing-value detection, and scientific reporting", "Clean research datasets reduce mistakes before interpretation.")
 
 
@@ -123,7 +123,11 @@ def openai_advice(prompt: str) -> str:
     key = os.getenv("OPENAI_API_KEY")
     if not key:
         return ""
-    data = post_json("https://api.openai.com/v1/chat/completions", {"Authorization": f"Bearer {key}"}, {"model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"), "messages": [{"role": "user", "content": prompt}], "temperature": 0.25, "max_tokens": 240})
+    data = post_json(
+        "https://api.openai.com/v1/chat/completions",
+        {"Authorization": f"Bearer {key}"},
+        {"model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"), "messages": [{"role": "user", "content": prompt}], "temperature": 0.25, "max_tokens": 240},
+    )
     return str(data["choices"][0]["message"]["content"])
 
 
@@ -132,25 +136,21 @@ def gemini_advice(prompt: str) -> str:
     if not key:
         return ""
     model = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
-    data = post_json(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}", {}, {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.25, "maxOutputTokens": 240}})
+    data = post_json(
+        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}",
+        {},
+        {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.25, "maxOutputTokens": 240}},
+    )
     return str(data["candidates"][0]["content"]["parts"][0]["text"])
-
-
-def grok_advice(prompt: str) -> str:
-    key = os.getenv("XAI_API_KEY") or os.getenv("GROK_API_KEY")
-    if not key:
-        return ""
-    data = post_json("https://api.x.ai/v1/chat/completions", {"Authorization": f"Bearer {key}"}, {"model": os.getenv("XAI_MODEL") or os.getenv("GROK_MODEL", "grok-3-mini"), "messages": [{"role": "user", "content": prompt}], "temperature": 0.25, "max_tokens": 240})
-    return str(data["choices"][0]["message"]["content"])
 
 
 def collect_improvement_ideas(item: Project) -> list[str]:
     ideas: list[str] = []
-    for call in (openai_advice, gemini_advice, grok_advice):
+    for call in (openai_advice, gemini_advice):
         try:
             response = clean_public_text(call(advisor_prompt(item)))
         except Exception as exc:
-            print(f"Optional three-model review skipped safely: {exc}")
+            print(f"Optional OpenAI/Gemini review skipped safely: {exc}")
             continue
         for line in response.splitlines():
             idea = re.sub(r"^[-*\d.)\s]+", "", line).strip()
@@ -167,15 +167,29 @@ def collect_improvement_ideas(item: Project) -> list[str]:
 
 def sample_rows(item: Project) -> list[dict[str, str]]:
     if "sequence" in item.slug or "crispr" in item.slug or "protein" in item.slug or "pathogen" in item.slug:
-        return [{"record_id": "SEQ1", "group": "reference", "signal": "0.94", "quality": "0.96", "risk": "1", "note": "stable marker pattern"}, {"record_id": "SEQ2", "group": "variant", "signal": "1.88", "quality": "0.81", "risk": "4", "note": "mutation cluster for review"}, {"record_id": "SEQ3", "group": "variant", "signal": "2.42", "quality": "0.69", "risk": "5", "note": "high-priority biological signal"}]
+        return [
+            {"record_id": "SEQ1", "group": "reference", "signal": "0.94", "quality": "0.96", "risk": "1", "note": "stable marker pattern"},
+            {"record_id": "SEQ2", "group": "variant", "signal": "1.88", "quality": "0.81", "risk": "4", "note": "mutation cluster for review"},
+            {"record_id": "SEQ3", "group": "variant", "signal": "2.42", "quality": "0.69", "risk": "5", "note": "high-priority biological signal"},
+        ]
     if "clinical" in item.slug or "pharmaco" in item.slug or "regulatory" in item.slug:
-        return [{"record_id": "CASE1", "group": "baseline", "signal": "0.77", "quality": "0.93", "risk": "1", "note": "meets review criteria"}, {"record_id": "CASE2", "group": "cohort_a", "signal": "1.51", "quality": "0.72", "risk": "3", "note": "missing follow-up evidence"}, {"record_id": "CASE3", "group": "cohort_b", "signal": "2.18", "quality": "0.61", "risk": "5", "note": "priority safety review"}]
-    return [{"record_id": "S1", "group": "control", "signal": "0.82", "quality": "0.91", "risk": "1", "note": "complete evidence"}, {"record_id": "S2", "group": "test", "signal": "1.64", "quality": "0.73", "risk": "3", "note": "review recommended"}, {"record_id": "S3", "group": "test", "signal": "2.31", "quality": "0.58", "risk": "5", "note": "priority sample"}]
+        return [
+            {"record_id": "CASE1", "group": "baseline", "signal": "0.77", "quality": "0.93", "risk": "1", "note": "meets review criteria"},
+            {"record_id": "CASE2", "group": "cohort_a", "signal": "1.51", "quality": "0.72", "risk": "3", "note": "missing follow-up evidence"},
+            {"record_id": "CASE3", "group": "cohort_b", "signal": "2.18", "quality": "0.61", "risk": "5", "note": "priority safety review"},
+        ]
+    return [
+        {"record_id": "S1", "group": "control", "signal": "0.82", "quality": "0.91", "risk": "1", "note": "complete evidence"},
+        {"record_id": "S2", "group": "test", "signal": "1.64", "quality": "0.73", "risk": "3", "note": "review recommended"},
+        {"record_id": "S3", "group": "test", "signal": "2.31", "quality": "0.58", "risk": "5", "note": "priority sample"},
+    ]
 
 
 def csv_text(rows: list[dict[str, str]]) -> str:
     headers = list(rows[0])
-    return "\n".join([",".join(headers), *(" ,".replace(" ", "").join(row[h] for h in headers) for row in rows)]) + "\n"
+    lines = [",".join(headers)]
+    lines.extend(",".join(row[header] for header in headers) for row in rows)
+    return "\n".join(lines) + "\n"
 
 
 def slug_to_script(slug: str) -> str:
@@ -249,7 +263,17 @@ if __name__ == "__main__":
         label = "priority review" if risk >= 5 or (signal >= 2 and quality < 0.7) else "watch list" if risk >= 3 or signal >= 1.5 else "routine review"
         labels.append(f"- {row['record_id']}: {label} | {row['note']}")
     average = sum(float(row["signal"]) for row in rows) / len(rows)
-    example = "\n".join([item.title, f"Focus: {item.job_skill}", f"Records reviewed: {len(rows)}", f"Average signal: {average:.2f}", "Group summary:", f"- {rows[0]['group']}: 1 records", f"- {rows[1]['group']}: 2 records" if rows[1]["group"] == rows[2]["group"] else f"- {rows[1]['group']}: 1 records", "Review labels:", *labels]) + "\n"
+    example = "\n".join([
+        item.title,
+        f"Focus: {item.job_skill}",
+        f"Records reviewed: {len(rows)}",
+        f"Average signal: {average:.2f}",
+        "Group summary:",
+        f"- {rows[0]['group']}: 1 records",
+        f"- {rows[1]['group']}: 2 records" if rows[1]["group"] == rows[2]["group"] else f"- {rows[1]['group']}: 1 records",
+        "Review labels:",
+        *labels,
+    ]) + "\n"
     return ProjectFiles(script_name, "sample_data.csv", csv_text(rows), code, example, collect_improvement_ideas(item))
 
 
