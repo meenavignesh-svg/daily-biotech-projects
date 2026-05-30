@@ -19,10 +19,10 @@ I am targeting entry-level roles/internships in:
 
 | Track | Folder | Purpose |
 | --- | --- | --- |
-| Bioinformatics | `bioinformatics/` | Sequence analysis, primers, proteins, FASTA workflows |
-| Lab Data Analysis | `lab-data-analysis/` | CSV cleaning, OD readings, growth curves, expression summaries |
-| Medical Coding / Healthcare Data | `medical-coding-healthcare-data/` | Safe educational healthcare-data mapping and summaries |
-| Biotech AI Tools | `biotech-ai-tools/` | Transparent biotech decision-support demos for learning |
+| Bioinformatics | `bioinformatics/` | Sequence analysis, primers, proteins, FASTA workflows, omics prioritization |
+| Lab Data Analysis | `lab-data-analysis/` | CSV cleaning, OD readings, growth curves, qPCR, bioprocess and assay analysis |
+| Medical Coding / Healthcare Data | `medical-coding-healthcare-data/` | Safe educational healthcare-data mapping, cohort review, and signal triage |
+| Biotech AI Tools | `biotech-ai-tools/` | Transparent biotech decision-support demos, biomarker ranking, and readiness checks |
 
 ## Project Roadmap
 
@@ -48,6 +48,16 @@ I am targeting entry-level roles/internships in:
 | Medical Coding / Healthcare Data | 18 Diagnosis keyword triage classifier | Planned |
 | Biotech AI Tools | 19 Adverse event signal counter | Planned |
 | Biotech AI Tools | 20 Bioreactor batch anomaly screener | Planned |
+| Bioinformatics | 21 Multi-omics sample prioritization engine | Planned |
+| Bioinformatics | 22 CRISPR guide risk ranking system | Planned |
+| Bioinformatics | 23 Pathogen genome surveillance dashboard | Planned |
+| Bioinformatics | 24 Protein domain intelligence mapper | Planned |
+| Lab Data Analysis | 25 Digital twin bioreactor optimizer | Planned |
+| Lab Data Analysis | 26 High-throughput screening hit selector | Planned |
+| Medical Coding / Healthcare Data | 27 Clinical cohort stratification engine | Planned |
+| Medical Coding / Healthcare Data | 28 Pharmacovigilance signal triage system | Planned |
+| Biotech AI Tools | 29 Explainable biomarker discovery console | Planned |
+| Biotech AI Tools | 30 Regulatory submission readiness auditor | Planned |
 
 ## Completed Portfolio Projects
 
