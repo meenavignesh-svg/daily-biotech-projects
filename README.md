@@ -1,6 +1,6 @@
 # Computational Biotechnology Portfolio
 
-A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, first-year Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
+A focused biotechnology, bioinformatics, and healthcare-data portfolio by **Meena Vignesh M**, Biotechnology student at **Sethu Institute of Technology, Kariapatti**.
 
 **Live portfolio site:** https://meenavignesh-svg.github.io/daily-biotech-projects/
 
@@ -38,6 +38,16 @@ I am targeting entry-level roles/internships in:
 | Medical Coding / Healthcare Data | 08 Medical coding term mapper | Planned |
 | Medical Coding / Healthcare Data | 09 Drug prescription data dashboard | Planned |
 | Biotech AI Tools | 10 BioSentinel risk-screening demo | Planned |
+| Bioinformatics | 11 Sequence variant impact annotator | Planned |
+| Bioinformatics | 12 Pairwise sequence alignment scorer | Planned |
+| Bioinformatics | 13 ORF finder and translation reporter | Planned |
+| Lab Data Analysis | 14 qPCR delta-delta Ct analyzer | Planned |
+| Lab Data Analysis | 15 LIMS sample tracker quality audit | Planned |
+| Lab Data Analysis | 16 Antibiotic zone of inhibition analyzer | Planned |
+| Medical Coding / Healthcare Data | 17 Clinical lab reference range flagger | Planned |
+| Medical Coding / Healthcare Data | 18 Diagnosis keyword triage classifier | Planned |
+| Biotech AI Tools | 19 Adverse event signal counter | Planned |
+| Biotech AI Tools | 20 Bioreactor batch anomaly screener | Planned |
 
 ## Completed Portfolio Projects
 
@@ -45,18 +55,18 @@ I am targeting entry-level roles/internships in:
 
 | Project | Live page | Skill shown |
 | --- | --- | --- |
-| [DNA FASTA Analyzer](bioinformatics/01-dna-fasta-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/01-dna-fasta-analyzer/) | FASTA parsing, nucleotide counting, GC content reporting, and transcription basics Reading text files, dictionaries, loops, and formatted report output Writing a README that explains the project like a scientific mini report |
-| [Protein Property Calculator](bioinformatics/02-protein-property-calculator) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/02-protein-property-calculator/) | Protein sequence cleaning, amino acid composition, and approximate molecular weight reporting String validation, dictionaries, numeric calculations, and reusable functions Writing a project as a small bioinformatics case study instead of only a code file |
-| [Primer Quality Checker](bioinformatics/03-primer-quality-checker) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/03-primer-quality-checker/) | Primer QC, GC percentage, simple melting temperature, and beginner PCR design checks CSV parsing, condition based scoring, and clean tabular summaries Explaining why a biological sequence passes or needs review |
+| [DNA FASTA Analyzer](bioinformatics/01-dna-fasta-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/01-dna-fasta-analyzer/) | FASTA parsing, nucleotide counting, GC content reporting, and transcription basics |
+| [Protein Property Calculator](bioinformatics/02-protein-property-calculator) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/02-protein-property-calculator/) | Protein sequence cleaning, amino acid composition, and approximate molecular weight reporting |
+| [Primer Quality Checker](bioinformatics/03-primer-quality-checker) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/bioinformatics/03-primer-quality-checker/) | Primer QC, GC percentage, simple melting temperature, and beginner PCR design checks |
 
 ### Lab Data Analysis
 
 | Project | Live page | Skill shown |
 | --- | --- | --- |
-| [Gene Expression Fold-Change Analysis](lab-data-analysis/04-gene-expression-fold-change-analysis) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/04-gene-expression-fold-change-analysis/) | Gene expression CSV analysis, fold change calculation, and treatment control comparison CSV data handling, float conversion, division safety, and classification logic Writing a lab data report that can be explained in an interview |
-| [ELISA OD Data Analyzer](lab-data-analysis/05-elisa-od-data-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/05-elisa-od-data-analyzer/) | ELISA optical density summarization, replicate averaging, and sample ranking Grouping rows, averaging replicates, sorting values, and reporting clean results Writing a README that explains the project like a scientific mini report |
-| [Microbial Growth Curve Analyzer](lab-data-analysis/06-microbial-growth-curve-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/06-microbial-growth-curve-analyzer/) | OD600 time series analysis, growth phase observation, and peak growth reporting List processing, slope calculation, maximum detection, and readable summaries Writing a README that explains the project like a scientific mini report |
-| [Lab Report Table Cleaner](lab-data-analysis/07-lab-report-table-cleaner) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/07-lab-report-table-cleaner/) | Cleaning copied lab tables into structured CSV files for analysis Text parsing, whitespace cleanup, CSV writing, and file output Writing a README that explains the project like a scientific mini report |
+| [Gene Expression Fold-Change Analysis](lab-data-analysis/04-gene-expression-fold-change-analysis) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/04-gene-expression-fold-change-analysis/) | Gene expression CSV analysis, fold-change calculation, and treatment-control comparison |
+| [ELISA OD Data Analyzer](lab-data-analysis/05-elisa-od-data-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/05-elisa-od-data-analyzer/) | ELISA optical density summarization, replicate averaging, and sample ranking |
+| [Microbial Growth Curve Analyzer](lab-data-analysis/06-microbial-growth-curve-analyzer) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/06-microbial-growth-curve-analyzer/) | OD600 time-series analysis, growth phase observation, and peak growth reporting |
+| [Lab Report Table Cleaner](lab-data-analysis/07-lab-report-table-cleaner) | [View page](https://meenavignesh-svg.github.io/daily-biotech-projects/lab-data-analysis/07-lab-report-table-cleaner/) | Cleaning copied lab tables into structured CSV files for analysis |
 
 ### Medical Coding / Healthcare Data
 
@@ -79,5 +89,5 @@ Each main project is expected to include:
 ## Author
 
 **Meena Vignesh M**  
-First-year Biotechnology student  
+Biotechnology student  
 Sethu Institute of Technology, Kariapatti
