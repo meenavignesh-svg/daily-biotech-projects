@@ -7,7 +7,6 @@ import json
 import os
 import re
 import smtplib
-import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -82,19 +81,15 @@ class ProjectFiles:
     improvement_ideas: list[str]
 
 
-def roadmap() -> list[Project]:
-    return [Project(*item) for item in ROADMAP]
-
-
-def today_ist() -> str:
-    return datetime.now(IST).strftime("%Y-%m-%d")
-
-
 def clean_public_text(text: str) -> str:
     cleaned = text
     for bit in FORBIDDEN_BITS:
         cleaned = re.sub(bit, "", cleaned, flags=re.IGNORECASE)
-    return " ".join(cleaned.split()) if "\n" not in cleaned else cleaned.strip()
+    return cleaned.strip()
+
+
+def roadmap() -> list[Project]:
+    return [Project(*item) for item in ROADMAP]
 
 
 def project_path(item: Project) -> Path:
@@ -105,31 +100,21 @@ def next_project() -> Project:
     for item in roadmap():
         if not project_path(item).exists():
             return item
-    number = len([path for folder in TRACKS for path in (ROOT / folder).glob("*") if path.is_dir()]) + 1
-    return Project(
-        "lab-data-analysis",
-        f"{number:02d}-biotech-research-quality-system-{today_ist()}",
-        "Biotech Research Quality System",
-        "Research data quality checks, missing-value detection, and scientific reporting",
-        "Clean research datasets reduce mistakes before interpretation.",
-    )
+    number = len([p for folder in TRACKS for p in (ROOT / folder).glob("*") if p.is_dir()]) + 1
+    return Project("lab-data-analysis", f"{number:02d}-biotech-research-quality-system-{datetime.now(IST):%Y-%m-%d}", "Biotech Research Quality System", "Research data quality checks, missing-value detection, and scientific reporting", "Clean research datasets reduce mistakes before interpretation.")
 
 
 def post_json(url: str, headers: dict[str, str], payload: dict[str, object]) -> dict[str, object]:
-    request = urllib.request.Request(
-        url,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json", **headers},
-        method="POST",
-    )
+    request = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json", **headers}, method="POST")
     with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
         return json.loads(response.read().decode("utf-8"))
 
 
 def advisor_prompt(item: Project) -> str:
     return (
-        "Suggest exactly three concise improvements for a public computational biotechnology portfolio project. "
-        "Avoid saying AI, automation, generated, or built by any tool. Keep it realistic for a student project. "
+        "Act like a world-class biotechnology professor, bioinformatics engineer, and research portfolio reviewer. "
+        "Give exactly three rigorous but student-explainable upgrades for this public computational biotechnology portfolio project. "
+        "Do not mention AI, automation, generated content, or any tool. Make the ideas impressive, practical, and defensible in an interview. "
         f"Project: {item.title}. Skill: {item.job_skill}. Biology concept: {item.biology_concept}."
     )
 
@@ -138,24 +123,8 @@ def openai_advice(prompt: str) -> str:
     key = os.getenv("OPENAI_API_KEY")
     if not key:
         return ""
-    data = post_json(
-        "https://api.openai.com/v1/chat/completions",
-        {"Authorization": f"Bearer {key}"},
-        {"model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"), "messages": [{"role": "user", "content": prompt}], "temperature": 0.4, "max_tokens": 220},
-    )
+    data = post_json("https://api.openai.com/v1/chat/completions", {"Authorization": f"Bearer {key}"}, {"model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"), "messages": [{"role": "user", "content": prompt}], "temperature": 0.25, "max_tokens": 240})
     return str(data["choices"][0]["message"]["content"])
-
-
-def anthropic_advice(prompt: str) -> str:
-    key = os.getenv("ANTHROPIC_API_KEY")
-    if not key:
-        return ""
-    data = post_json(
-        "https://api.anthropic.com/v1/messages",
-        {"x-api-key": key, "anthropic-version": "2023-06-01"},
-        {"model": os.getenv("ANTHROPIC_MODEL", "claude-3-5-haiku-latest"), "max_tokens": 220, "messages": [{"role": "user", "content": prompt}]},
-    )
-    return str(data["content"][0]["text"])
 
 
 def gemini_advice(prompt: str) -> str:
@@ -163,96 +132,59 @@ def gemini_advice(prompt: str) -> str:
     if not key:
         return ""
     model = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
-    data = post_json(
-        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}",
-        {},
-        {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.4, "maxOutputTokens": 220}},
-    )
+    data = post_json(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}", {}, {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.25, "maxOutputTokens": 240}})
     return str(data["candidates"][0]["content"]["parts"][0]["text"])
 
 
-def openai_compatible_advice(prompt: str, key_name: str, model_name: str, default_model: str, base_url: str) -> str:
-    key = os.getenv(key_name)
+def grok_advice(prompt: str) -> str:
+    key = os.getenv("XAI_API_KEY") or os.getenv("GROK_API_KEY")
     if not key:
         return ""
-    data = post_json(
-        base_url,
-        {"Authorization": f"Bearer {key}"},
-        {"model": os.getenv(model_name, default_model), "messages": [{"role": "user", "content": prompt}], "temperature": 0.4, "max_tokens": 220},
-    )
+    data = post_json("https://api.x.ai/v1/chat/completions", {"Authorization": f"Bearer {key}"}, {"model": os.getenv("XAI_MODEL") or os.getenv("GROK_MODEL", "grok-3-mini"), "messages": [{"role": "user", "content": prompt}], "temperature": 0.25, "max_tokens": 240})
     return str(data["choices"][0]["message"]["content"])
 
 
 def collect_improvement_ideas(item: Project) -> list[str]:
-    prompt = advisor_prompt(item)
-    calls = [
-        openai_advice,
-        anthropic_advice,
-        gemini_advice,
-        lambda text: openai_compatible_advice(text, "GROQ_API_KEY", "GROQ_MODEL", "llama-3.1-8b-instant", "https://api.groq.com/openai/v1/chat/completions"),
-        lambda text: openai_compatible_advice(text, "MISTRAL_API_KEY", "MISTRAL_MODEL", "mistral-small-latest", "https://api.mistral.ai/v1/chat/completions"),
-        lambda text: openai_compatible_advice(text, "OPENROUTER_API_KEY", "OPENROUTER_MODEL", "openai/gpt-4o-mini", "https://openrouter.ai/api/v1/chat/completions"),
-    ]
     ideas: list[str] = []
-    for call in calls:
+    for call in (openai_advice, gemini_advice, grok_advice):
         try:
-            response = clean_public_text(call(prompt))
-        except (urllib.error.URLError, TimeoutError, KeyError, IndexError, TypeError, ValueError, OSError) as exc:
-            print(f"Optional model review skipped: {exc}")
+            response = clean_public_text(call(advisor_prompt(item)))
+        except Exception as exc:
+            print(f"Optional three-model review skipped safely: {exc}")
             continue
         for line in response.splitlines():
             idea = re.sub(r"^[-*\d.)\s]+", "", line).strip()
-            if 18 <= len(idea) <= 180 and idea.lower() not in {entry.lower() for entry in ideas}:
+            if 22 <= len(idea) <= 190 and idea.lower() not in {entry.lower() for entry in ideas}:
                 ideas.append(idea)
             if len(ideas) >= 5:
                 return ideas
-    if not ideas:
-        ideas = [
-            "Add sample data that includes normal, watch-list, and priority-review cases.",
-            "Keep every result explainable so the project can be discussed in an interview.",
-            "Show one clear resume bullet linked to the biological problem solved.",
-        ]
-    return ideas[:5]
+    return ideas[:5] or [
+        "Add sample data that includes routine, watch-list, and priority-review cases.",
+        "Keep every result explainable so the project can be defended in an interview.",
+        "Connect the output to one clear biological decision or lab-data review step.",
+    ]
+
+
+def sample_rows(item: Project) -> list[dict[str, str]]:
+    if "sequence" in item.slug or "crispr" in item.slug or "protein" in item.slug or "pathogen" in item.slug:
+        return [{"record_id": "SEQ1", "group": "reference", "signal": "0.94", "quality": "0.96", "risk": "1", "note": "stable marker pattern"}, {"record_id": "SEQ2", "group": "variant", "signal": "1.88", "quality": "0.81", "risk": "4", "note": "mutation cluster for review"}, {"record_id": "SEQ3", "group": "variant", "signal": "2.42", "quality": "0.69", "risk": "5", "note": "high-priority biological signal"}]
+    if "clinical" in item.slug or "pharmaco" in item.slug or "regulatory" in item.slug:
+        return [{"record_id": "CASE1", "group": "baseline", "signal": "0.77", "quality": "0.93", "risk": "1", "note": "meets review criteria"}, {"record_id": "CASE2", "group": "cohort_a", "signal": "1.51", "quality": "0.72", "risk": "3", "note": "missing follow-up evidence"}, {"record_id": "CASE3", "group": "cohort_b", "signal": "2.18", "quality": "0.61", "risk": "5", "note": "priority safety review"}]
+    return [{"record_id": "S1", "group": "control", "signal": "0.82", "quality": "0.91", "risk": "1", "note": "complete evidence"}, {"record_id": "S2", "group": "test", "signal": "1.64", "quality": "0.73", "risk": "3", "note": "review recommended"}, {"record_id": "S3", "group": "test", "signal": "2.31", "quality": "0.58", "risk": "5", "note": "priority sample"}]
+
+
+def csv_text(rows: list[dict[str, str]]) -> str:
+    headers = list(rows[0])
+    return "\n".join([",".join(headers), *(" ,".replace(" ", "").join(row[h] for h in headers) for row in rows)]) + "\n"
 
 
 def slug_to_script(slug: str) -> str:
     return re.sub(r"^\d+-", "", slug).replace("-", "_") + ".py"
 
 
-def sample_rows(item: Project) -> list[dict[str, str]]:
-    if "sequence" in item.slug or "crispr" in item.slug or "protein" in item.slug or "pathogen" in item.slug:
-        return [
-            {"record_id": "SEQ1", "group": "reference", "signal": "0.94", "quality": "0.96", "risk": "1", "note": "stable marker pattern"},
-            {"record_id": "SEQ2", "group": "variant", "signal": "1.88", "quality": "0.81", "risk": "4", "note": "mutation cluster for review"},
-            {"record_id": "SEQ3", "group": "variant", "signal": "2.42", "quality": "0.69", "risk": "5", "note": "high-priority biological signal"},
-        ]
-    if "clinical" in item.slug or "pharmaco" in item.slug or "regulatory" in item.slug:
-        return [
-            {"record_id": "CASE1", "group": "baseline", "signal": "0.77", "quality": "0.93", "risk": "1", "note": "meets review criteria"},
-            {"record_id": "CASE2", "group": "cohort_a", "signal": "1.51", "quality": "0.72", "risk": "3", "note": "missing follow-up evidence"},
-            {"record_id": "CASE3", "group": "cohort_b", "signal": "2.18", "quality": "0.61", "risk": "5", "note": "priority safety review"},
-        ]
-    return [
-        {"record_id": "S1", "group": "control", "signal": "0.82", "quality": "0.91", "risk": "1", "note": "complete evidence"},
-        {"record_id": "S2", "group": "test", "signal": "1.64", "quality": "0.73", "risk": "3", "note": "review recommended"},
-        {"record_id": "S3", "group": "test", "signal": "2.31", "quality": "0.58", "risk": "5", "note": "priority sample"},
-    ]
-
-
-def csv_text(rows: list[dict[str, str]]) -> str:
-    headers = list(rows[0])
-    lines = [",".join(headers)]
-    for row in rows:
-        lines.append(",".join(row[header] for header in headers))
-    return "\n".join(lines) + "\n"
-
-
 def make_files(item: Project) -> ProjectFiles:
-    script_name = slug_to_script(item.slug)
-    sample_name = "sample_data.csv"
     rows = sample_rows(item)
-    sample_content = csv_text(rows)
-    ideas = collect_improvement_ideas(item)
+    script_name = slug_to_script(item.slug)
     code = f'''"""{item.title}: analyze sample biotech data and produce an explainable review report."""
 
 from __future__ import annotations
@@ -262,8 +194,8 @@ import csv
 from collections import Counter
 from pathlib import Path
 
-PROJECT_NAME = "{item.title}"
-FOCUS = "{item.job_skill}"
+PROJECT_NAME = {item.title!r}
+FOCUS = {item.job_skill!r}
 
 
 def load_rows(path: Path) -> list[dict[str, str]]:
@@ -291,9 +223,8 @@ def classify(row: dict[str, str]) -> str:
 
 def summarize(rows: list[dict[str, str]]) -> list[str]:
     groups = Counter(row.get("group", "unknown") for row in rows)
-    missing = sum(1 for row in rows for value in row.values() if not value.strip())
     average_signal = sum(to_float(row.get("signal", "0")) for row in rows) / len(rows)
-    lines = [PROJECT_NAME, f"Focus: {{FOCUS}}", f"Records reviewed: {{len(rows)}}", f"Average signal: {{average_signal:.2f}}", f"Missing values: {{missing}}", "Group summary:"]
+    lines = [PROJECT_NAME, f"Focus: {{FOCUS}}", f"Records reviewed: {{len(rows)}}", f"Average signal: {{average_signal:.2f}}", "Group summary:"]
     for group, count in groups.most_common():
         lines.append(f"- {{group}}: {{count}} records")
     lines.append("Review labels:")
@@ -314,25 +245,12 @@ if __name__ == "__main__":
 '''
     labels = []
     for row in rows:
-        signal = float(row["signal"])
-        quality = float(row["quality"])
-        risk = float(row["risk"])
+        signal, quality, risk = float(row["signal"]), float(row["quality"]), float(row["risk"])
         label = "priority review" if risk >= 5 or (signal >= 2 and quality < 0.7) else "watch list" if risk >= 3 or signal >= 1.5 else "routine review"
         labels.append(f"- {row['record_id']}: {label} | {row['note']}")
     average = sum(float(row["signal"]) for row in rows) / len(rows)
-    example_output = "\n".join([
-        item.title,
-        f"Focus: {item.job_skill}",
-        f"Records reviewed: {len(rows)}",
-        f"Average signal: {average:.2f}",
-        "Missing values: 0",
-        "Group summary:",
-        f"- {rows[0]['group']}: 1 records",
-        f"- {rows[1]['group']}: 2 records" if rows[1]["group"] == rows[2]["group"] else f"- {rows[1]['group']}: 1 records",
-        "Review labels:",
-        *labels,
-    ]) + "\n"
-    return ProjectFiles(script_name, sample_name, sample_content, code, example_output, ideas)
+    example = "\n".join([item.title, f"Focus: {item.job_skill}", f"Records reviewed: {len(rows)}", f"Average signal: {average:.2f}", "Group summary:", f"- {rows[0]['group']}: 1 records", f"- {rows[1]['group']}: 2 records" if rows[1]["group"] == rows[2]["group"] else f"- {rows[1]['group']}: 1 records", "Review labels:", *labels]) + "\n"
+    return ProjectFiles(script_name, "sample_data.csv", csv_text(rows), code, example, collect_improvement_ideas(item))
 
 
 def readme_for(item: Project, files: ProjectFiles) -> str:
@@ -381,49 +299,36 @@ This tool converts raw biological/lab data into a clean summary report with revi
 """) + "\n"
 
 
-def line_explanation(code: str) -> str:
-    lines = ["Line-by-line code explanation:", ""]
-    for number, line in enumerate(code.splitlines(), start=1):
-        stripped = line.strip()
-        if not stripped:
-            meaning = "Blank space to keep the code readable."
-        elif stripped.startswith('"""'):
-            meaning = "States the purpose of the script."
-        elif stripped.startswith("from __future__"):
-            meaning = "Keeps modern Python type-hint behavior consistent."
-        elif stripped.startswith("import ") or stripped.startswith("from "):
-            meaning = "Loads a Python tool used later in the script."
-        elif stripped.startswith("def "):
-            meaning = "Starts a reusable function for one clear task."
-        elif "csv" in stripped:
-            meaning = "Reads structured table data."
-        elif "Counter" in stripped:
-            meaning = "Counts repeated groups in the dataset."
-        elif "print(" in stripped:
-            meaning = "Shows the final report in the terminal."
-        elif stripped.startswith("if __name__"):
-            meaning = "Runs the script only when this file is opened directly."
-        else:
-            meaning = "Supports the main analysis logic."
-        lines.append(f"Line {number}: {line}")
-        lines.append(f"Explanation: {meaning}")
-        lines.append("")
-    return "\n".join(lines)
-
-
 def resume_bullet(item: Project) -> str:
     return f"Built {item.title} to demonstrate {item.job_skill.lower()} with reproducible Python reporting."
 
 
+def line_explanation(code: str) -> str:
+    output = ["Line-by-line code explanation:", ""]
+    for number, line in enumerate(code.splitlines(), start=1):
+        stripped = line.strip()
+        if not stripped:
+            meaning = "Blank space to keep the code readable."
+        elif stripped.startswith("def "):
+            meaning = "Starts a reusable function for one clear task."
+        elif "csv" in stripped:
+            meaning = "Reads structured table data."
+        elif "print(" in stripped:
+            meaning = "Shows the final report in the terminal."
+        else:
+            meaning = "Supports the analysis workflow."
+        output.extend([f"Line {number}: {line}", f"Explanation: {meaning}", ""])
+    return "\n".join(output)
+
+
 def email_body(item: Project, files: ProjectFiles) -> str:
-    link = f"{REPO_URL}/tree/main/{item.folder}/{item.slug}"
     ideas = "\n".join(f"- {idea}" for idea in files.improvement_ideas)
     return clean_public_text(f"""Today's biotech job skill:
 {item.job_skill}
 
 Project built:
 {item.title}
-Repository: {link}
+Repository: {REPO_URL}/tree/main/{item.folder}/{item.slug}
 
 Python concept learned:
 CSV parsing, reusable functions, review-label logic, and explainable report writing.
@@ -479,9 +384,7 @@ def append_resume_bullet(item: Project) -> None:
     bullet = f"- {resume_bullet(item)}"
     text = RESUME_PATH.read_text(encoding="utf-8") if RESUME_PATH.exists() else header
     if bullet not in text:
-        if not text.endswith("\n"):
-            text += "\n"
-        text += bullet + "\n"
+        text = text.rstrip() + "\n" + bullet + "\n"
     RESUME_PATH.write_text(clean_public_text(text) + "\n", encoding="utf-8")
 
 
