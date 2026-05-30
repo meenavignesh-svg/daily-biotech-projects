@@ -1,0 +1,1 @@
+Saved 3 cleaned rows to clean_lab_table.csv
