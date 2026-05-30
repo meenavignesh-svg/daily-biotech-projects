@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import csv
+import json
 import os
 import re
 import smtplib
+import urllib.error
+import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
@@ -15,6 +18,7 @@ IST = timezone(timedelta(hours=5, minutes=30))
 ROOT = Path(__file__).resolve().parents[1]
 REPO_URL = "https://github.com/meenavignesh-svg/daily-biotech-projects"
 RESUME_PATH = ROOT / "RESUME_BULLETS.md"
+TIMEOUT_SECONDS = 25
 
 TRACKS = {
     "bioinformatics": "Bioinformatics",
@@ -75,6 +79,7 @@ class ProjectFiles:
     sample_content: str
     code: str
     example_output: str
+    improvement_ideas: list[str]
 
 
 def roadmap() -> list[Project]:
@@ -89,7 +94,7 @@ def clean_public_text(text: str) -> str:
     cleaned = text
     for bit in FORBIDDEN_BITS:
         cleaned = re.sub(bit, "", cleaned, flags=re.IGNORECASE)
-    return cleaned.replace("  ", " ").strip()
+    return " ".join(cleaned.split()) if "\n" not in cleaned else cleaned.strip()
 
 
 def project_path(item: Project) -> Path:
@@ -110,16 +115,111 @@ def next_project() -> Project:
     )
 
 
+def post_json(url: str, headers: dict[str, str], payload: dict[str, object]) -> dict[str, object]:
+    request = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json", **headers},
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
+        return json.loads(response.read().decode("utf-8"))
+
+
+def advisor_prompt(item: Project) -> str:
+    return (
+        "Suggest exactly three concise improvements for a public computational biotechnology portfolio project. "
+        "Avoid saying AI, automation, generated, or built by any tool. Keep it realistic for a student project. "
+        f"Project: {item.title}. Skill: {item.job_skill}. Biology concept: {item.biology_concept}."
+    )
+
+
+def openai_advice(prompt: str) -> str:
+    key = os.getenv("OPENAI_API_KEY")
+    if not key:
+        return ""
+    data = post_json(
+        "https://api.openai.com/v1/chat/completions",
+        {"Authorization": f"Bearer {key}"},
+        {"model": os.getenv("OPENAI_MODEL", "gpt-4o-mini"), "messages": [{"role": "user", "content": prompt}], "temperature": 0.4, "max_tokens": 220},
+    )
+    return str(data["choices"][0]["message"]["content"])
+
+
+def anthropic_advice(prompt: str) -> str:
+    key = os.getenv("ANTHROPIC_API_KEY")
+    if not key:
+        return ""
+    data = post_json(
+        "https://api.anthropic.com/v1/messages",
+        {"x-api-key": key, "anthropic-version": "2023-06-01"},
+        {"model": os.getenv("ANTHROPIC_MODEL", "claude-3-5-haiku-latest"), "max_tokens": 220, "messages": [{"role": "user", "content": prompt}]},
+    )
+    return str(data["content"][0]["text"])
+
+
+def gemini_advice(prompt: str) -> str:
+    key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
+    if not key:
+        return ""
+    model = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
+    data = post_json(
+        f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}",
+        {},
+        {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.4, "maxOutputTokens": 220}},
+    )
+    return str(data["candidates"][0]["content"]["parts"][0]["text"])
+
+
+def openai_compatible_advice(prompt: str, key_name: str, model_name: str, default_model: str, base_url: str) -> str:
+    key = os.getenv(key_name)
+    if not key:
+        return ""
+    data = post_json(
+        base_url,
+        {"Authorization": f"Bearer {key}"},
+        {"model": os.getenv(model_name, default_model), "messages": [{"role": "user", "content": prompt}], "temperature": 0.4, "max_tokens": 220},
+    )
+    return str(data["choices"][0]["message"]["content"])
+
+
+def collect_improvement_ideas(item: Project) -> list[str]:
+    prompt = advisor_prompt(item)
+    calls = [
+        openai_advice,
+        anthropic_advice,
+        gemini_advice,
+        lambda text: openai_compatible_advice(text, "GROQ_API_KEY", "GROQ_MODEL", "llama-3.1-8b-instant", "https://api.groq.com/openai/v1/chat/completions"),
+        lambda text: openai_compatible_advice(text, "MISTRAL_API_KEY", "MISTRAL_MODEL", "mistral-small-latest", "https://api.mistral.ai/v1/chat/completions"),
+        lambda text: openai_compatible_advice(text, "OPENROUTER_API_KEY", "OPENROUTER_MODEL", "openai/gpt-4o-mini", "https://openrouter.ai/api/v1/chat/completions"),
+    ]
+    ideas: list[str] = []
+    for call in calls:
+        try:
+            response = clean_public_text(call(prompt))
+        except (urllib.error.URLError, TimeoutError, KeyError, IndexError, TypeError, ValueError, OSError) as exc:
+            print(f"Optional model review skipped: {exc}")
+            continue
+        for line in response.splitlines():
+            idea = re.sub(r"^[-*\d.)\s]+", "", line).strip()
+            if 18 <= len(idea) <= 180 and idea.lower() not in {entry.lower() for entry in ideas}:
+                ideas.append(idea)
+            if len(ideas) >= 5:
+                return ideas
+    if not ideas:
+        ideas = [
+            "Add sample data that includes normal, watch-list, and priority-review cases.",
+            "Keep every result explainable so the project can be discussed in an interview.",
+            "Show one clear resume bullet linked to the biological problem solved.",
+        ]
+    return ideas[:5]
+
+
 def slug_to_script(slug: str) -> str:
     return re.sub(r"^\d+-", "", slug).replace("-", "_") + ".py"
 
 
 def sample_rows(item: Project) -> list[dict[str, str]]:
-    base = [
-        {"record_id": "S1", "group": "control", "signal": "0.82", "quality": "0.91", "risk": "1", "note": "complete evidence"},
-        {"record_id": "S2", "group": "test", "signal": "1.64", "quality": "0.73", "risk": "3", "note": "review recommended"},
-        {"record_id": "S3", "group": "test", "signal": "2.31", "quality": "0.58", "risk": "5", "note": "priority sample"},
-    ]
     if "sequence" in item.slug or "crispr" in item.slug or "protein" in item.slug or "pathogen" in item.slug:
         return [
             {"record_id": "SEQ1", "group": "reference", "signal": "0.94", "quality": "0.96", "risk": "1", "note": "stable marker pattern"},
@@ -132,7 +232,11 @@ def sample_rows(item: Project) -> list[dict[str, str]]:
             {"record_id": "CASE2", "group": "cohort_a", "signal": "1.51", "quality": "0.72", "risk": "3", "note": "missing follow-up evidence"},
             {"record_id": "CASE3", "group": "cohort_b", "signal": "2.18", "quality": "0.61", "risk": "5", "note": "priority safety review"},
         ]
-    return base
+    return [
+        {"record_id": "S1", "group": "control", "signal": "0.82", "quality": "0.91", "risk": "1", "note": "complete evidence"},
+        {"record_id": "S2", "group": "test", "signal": "1.64", "quality": "0.73", "risk": "3", "note": "review recommended"},
+        {"record_id": "S3", "group": "test", "signal": "2.31", "quality": "0.58", "risk": "5", "note": "priority sample"},
+    ]
 
 
 def csv_text(rows: list[dict[str, str]]) -> str:
@@ -148,6 +252,7 @@ def make_files(item: Project) -> ProjectFiles:
     sample_name = "sample_data.csv"
     rows = sample_rows(item)
     sample_content = csv_text(rows)
+    ideas = collect_improvement_ideas(item)
     code = f'''"""{item.title}: analyze sample biotech data and produce an explainable review report."""
 
 from __future__ import annotations
@@ -214,21 +319,24 @@ if __name__ == "__main__":
         risk = float(row["risk"])
         label = "priority review" if risk >= 5 or (signal >= 2 and quality < 0.7) else "watch list" if risk >= 3 or signal >= 1.5 else "routine review"
         labels.append(f"- {row['record_id']}: {label} | {row['note']}")
+    average = sum(float(row["signal"]) for row in rows) / len(rows)
     example_output = "\n".join([
         item.title,
         f"Focus: {item.job_skill}",
         f"Records reviewed: {len(rows)}",
-        "Average signal: 1.59",
+        f"Average signal: {average:.2f}",
         "Missing values: 0",
         "Group summary:",
-        "- test: 2 records" if rows[1]["group"] == "test" else f"- {rows[1]['group']}: 1 records",
+        f"- {rows[0]['group']}: 1 records",
+        f"- {rows[1]['group']}: 2 records" if rows[1]["group"] == rows[2]["group"] else f"- {rows[1]['group']}: 1 records",
         "Review labels:",
         *labels,
     ]) + "\n"
-    return ProjectFiles(script_name, sample_name, sample_content, code, example_output)
+    return ProjectFiles(script_name, sample_name, sample_content, code, example_output, ideas)
 
 
 def readme_for(item: Project, files: ProjectFiles) -> str:
+    ideas = "\n".join(f"- {idea}" for idea in files.improvement_ideas[:3])
     return clean_public_text(f"""# {item.title}
 
 **Portfolio:** Computational Biotechnology Portfolio  
@@ -262,6 +370,9 @@ python {files.script_name} {files.sample_name}
 
 ## Result
 This tool converts raw biological/lab data into a clean summary report with review labels and evidence notes.
+
+## Design Notes
+{ideas}
 
 ## What I Practiced
 - {item.job_skill}
@@ -306,6 +417,7 @@ def resume_bullet(item: Project) -> str:
 
 def email_body(item: Project, files: ProjectFiles) -> str:
     link = f"{REPO_URL}/tree/main/{item.folder}/{item.slug}"
+    ideas = "\n".join(f"- {idea}" for idea in files.improvement_ideas)
     return clean_public_text(f"""Today's biotech job skill:
 {item.job_skill}
 
@@ -321,6 +433,9 @@ Biology concept learned:
 
 How to explain this in interview:
 I built a small Python tool that accepts real-looking biotech or healthcare data, processes it step by step, and produces a clean result that a lab or data team could review. The main value is that I can connect biology concepts with reproducible data handling.
+
+Improvement ideas:
+{ideas}
 
 One resume bullet:
 - {resume_bullet(item)}
