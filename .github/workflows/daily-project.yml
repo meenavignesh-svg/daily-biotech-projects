@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: computational-biotech-portfolio
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build-project:
@@ -21,6 +21,11 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync latest main
+        run: git pull --ff-only origin main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -53,6 +58,7 @@ jobs:
             echo "No portfolio changes to commit."
           else
             git commit -m "Add computational biotech portfolio project"
+            git pull --rebase --autostash origin main
             git push
           fi
 
